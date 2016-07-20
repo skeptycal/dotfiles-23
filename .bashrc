@@ -9,6 +9,7 @@ alias ls='ls --color=auto'
 alias la='ls -al'
 alias emacs='emacsclient -c -a ""'
 alias edit=emacs
+alias plaidchat='plaidchat --force-device-scale-factor=2'
 
 PS1='[\u@\h \W]\$ '
 

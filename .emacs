@@ -23,6 +23,7 @@
 (show-paren-mode t)         ;; show matching parentheses
 (setq initial-scratch-message "")
 (setq inhibit-startup-screen t)
+(scroll-bar-mode -1)
 
 ;; Large file warning
 (setq large-file-warning-threshold 10000000)
