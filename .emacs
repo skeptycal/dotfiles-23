@@ -249,6 +249,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(border ((t nil)))
+ '(font-lock-variable-name-face ((t (:foreground "brightmagenta"))))
  '(helm-bookmark-directory ((t (:inherit nil))))
  '(helm-buffer-directory ((t (:foreground "DarkRed"))))
  '(helm-ff-directory ((t (:background "brightblack" :foreground "green"))))
@@ -259,7 +260,12 @@
  '(helm-selection ((t (:inherit region :background "white" :foreground "black" :weight normal))))
  '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
  '(region ((t (:inverse-video t))))
- '(vertical-border ((t (:background "black")))))
+ '(vertical-border ((t (:background "black"))))
+ '(web-mode-function-call-face ((t (:inherit font-lock-function-name-face))))
+ '(web-mode-html-tag-bracket-face ((t (:foreground "white"))))
+ '(web-mode-html-tag-face ((t (:foreground "white"))))
+ '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "red"))))
+ '(web-mode-variable-name-face ((t (:inherit default :foreground "magenta")))))
 
 ;; Select keymap
 (global-unset-key (vector (list 'shift 'left)))
