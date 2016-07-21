@@ -24,10 +24,10 @@ XF86AudioNext
     mpc next
 
 XF86MonBrightnessUp
-    xbacklight -inc 10%
+    xbacklight -inc 20%
 
 XF86MonBrightnessDown
-    xbacklight -dec 10%
+    xbacklight -dec 20%
 
 # terminal emulator
 super + Return
@@ -72,6 +72,24 @@ super + {_,shift +}{Left,Down,Up,Right}
 # focus the next/previous node
 super + {_,shift + }c
 	bspc node -f {next,prev}
+
+# focus the next/previous desktop
+super + bracket{left,right}
+	bspc desktop -f {prev,next}
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
 
 #
 # preselect (DISABLED)

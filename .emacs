@@ -25,6 +25,9 @@
 (setq inhibit-startup-screen t)
 (scroll-bar-mode -1)
 
+;; Scroll all the way to the end of the file
+(setq scroll-error-top-bottom t)
+
 ;; Large file warning
 (setq large-file-warning-threshold 10000000)
 
@@ -192,17 +195,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-start 2)
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
  '(blink-cursor-interval 0.2)
  '(compilation-message-face (quote default))
  '(css-indent-offset 2)
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#657b83")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
  '(cua-rectangle-modifier-key (quote meta))
- '(custom-enabled-themes (quote (solarized-dark)))
  '(custom-safe-themes
    (quote
     ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
@@ -245,10 +241,7 @@
  '(web-mode-disable-auto-pairing nil)
  '(web-mode-enable-auto-indentation nil)
  '(web-mode-enable-control-block-indentation nil)
- '(web-mode-markup-indent-offset 2)
- '(weechat-color-list
-   (quote
-    (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496"))))
+ '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -258,10 +251,14 @@
  '(border ((t nil)))
  '(helm-bookmark-directory ((t (:inherit nil))))
  '(helm-buffer-directory ((t (:foreground "DarkRed"))))
- '(helm-ff-directory ((t (:foreground "DarkRed"))))
+ '(helm-ff-directory ((t (:background "brightblack" :foreground "green"))))
  '(helm-ff-dotted-directory ((t nil)))
- '(helm-selection ((t (:background "black" :foreground "white" :weight normal))))
- '(helm-source-header ((t (:weight bold :height 1.3 :family "Sans Serif"))))
+ '(helm-ff-executable ((t (:foreground "red" :weight bold))))
+ '(helm-header ((t (:background "brightyellow" :foreground "black"))))
+ '(helm-header-line-left-margin ((t nil)))
+ '(helm-selection ((t (:inherit region :background "white" :foreground "black" :weight normal))))
+ '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
+ '(region ((t (:inverse-video t))))
  '(vertical-border ((t (:background "black")))))
 
 ;; Select keymap
@@ -271,39 +268,6 @@
 (define-key input-decode-map "\e[1;2C" [S-right])
 (define-key input-decode-map "\e[1;2B" [S-down])
 (define-key input-decode-map "\e[1:2A" [S-up])
-
-;; Flycheck
-(require 'flycheck)
-(setq-default flycheck-disabled-checkers
-              (append flycheck-disabled-checkers
-                      '(javascript-jshint)))
-(setq-default flycheck-temp-prefix ".flycheck")
-(setq-default flycheck-disabled-checkers
-              (append flycheck-disabled-checkers
-                      '(json-jsonlist)))
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(flycheck-add-mode 'javascript-eslint 'web-mode)
-
-;; Flycheck JSX fix
-(defadvice web-mode-highlight-part (around tweak-jsx activate)
-  (if (equal web-mode-content-type "jsx")
-      (let ((web-mode-enable-part-face nil))
-        ad-do-it)
-    ad-do-it))
-
-;; ;; Ido
-;; (ido-mode)
-;; (ido-everywhere 1)
-;; (ido-ubiquitous-mode 1)
-;; (ido-vertical-mode 1)
-;; (flx-ido-mode 1)
-;; (setq ido-enable-flex-matching t)
-;; (global-set-key (kbd "<backtab>") 'ido-prev-match)
-
-;; ;; Smex
-;; (load "smex")
-;; (smex-initialize)
-;; (global-set-key (kbd "M-x") 'smex)
 
 ;; Auto close brackets
 (electric-pair-mode 1)
