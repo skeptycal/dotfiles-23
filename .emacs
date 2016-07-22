@@ -265,6 +265,7 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "white"))))
  '(web-mode-html-tag-face ((t (:foreground "white"))))
  '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "red"))))
+ '(web-mode-javascript-string-face ((t (:inherit web-mode-string-face))))
  '(web-mode-variable-name-face ((t (:inherit default :foreground "magenta")))))
 
 ;; Select keymap
