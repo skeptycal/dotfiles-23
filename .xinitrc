@@ -1,6 +1,7 @@
 xrdb ~/.Xresources
 xmodmap ~/.Xmodmap
 setroot ~/Pictures/background.jpg
+# pulseaudio -nC
 
 compton -c -o 0.25 --no-fading-openclose &
 xset r rate 200 30 &

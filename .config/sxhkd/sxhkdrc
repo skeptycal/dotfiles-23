@@ -12,16 +12,16 @@ XF86AudioMute
     amixer set Master toggle
 
 XF86AudioPlay
-    mpc toggle
+    cmus-remote -u
 
-XF86AudioStop
-    mpc stop
+# XF86AudioStop
+#     mpc stop
 
 XF86AudioPrev
-    mpc prev
+    cmus-remote -r
 
 XF86AudioNext
-    mpc next
+    cmus-remote -n
 
 XF86MonBrightnessUp
     xbacklight -inc 20%

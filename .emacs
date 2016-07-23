@@ -341,6 +341,9 @@
 (global-set-key (kbd "C-x C-d") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x C-g") 'helm-projectile-ag)
 
+;; Auto complete
+(global-auto-complete-mode t)
+
 ;; Run current file
 (defun xah-run-current-file ()
   "Execute the current file.
