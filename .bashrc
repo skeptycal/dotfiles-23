@@ -17,10 +17,9 @@ alias plaidchat='plaidchat --force-device-scale-factor=2'
 export ALTERNATE_EDITOR=""
 export EDITOR=emacsclient
 
-
 # git
 
-source ~/git-prompt.sh
+source ~/.git-prompt.sh
 
 # Syntactic sugar for ANSI escape sequences
 txtblk='\e[0;30m' # Black - Regular
