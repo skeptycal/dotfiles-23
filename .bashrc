@@ -5,6 +5,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Ruby
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
 alias ls='ls --color=auto'
 alias la='ls -al'
 alias emacs='emacsclient -nw -c -a ""'
@@ -69,3 +72,5 @@ export GIT_PS1_SHOWSTASHSTATE="true"
 export GIT_PS1_SHOWUNTRACKEDFILES="true"
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWCOLORHINTS="true"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

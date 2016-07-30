@@ -262,6 +262,7 @@
  '(region ((t (:inverse-video t))))
  '(vertical-border ((t (:background "black"))))
  '(web-mode-function-call-face ((t (:inherit font-lock-function-name-face))))
+ '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "yellow"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "white"))))
  '(web-mode-html-tag-face ((t (:foreground "white"))))
  '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "red"))))
@@ -301,12 +302,8 @@
 
 (global-set-key (kbd "C-c C-c") 'save-and-compile)
 
-;; ;; Padding
-;; (global-linum-mode t)
-;; (setq linum-format " ")
-
-;; Auto-resize to golden ratio
-(golden-ratio-mode 1)
+;; Solarized
+(load-theme 'solarized)
 
 ;; Helm
 (require 'helm-config)
