@@ -19,9 +19,9 @@ alias plaidchat='plaidchat --force-device-scale-factor=2'
 
 export ALTERNATE_EDITOR=""
 export EDITOR=emacsclient
+export MAIL=/var/spool/mail/coleman
 
 # git
-
 source ~/.git-prompt.sh
 
 # Syntactic sugar for ANSI escape sequences
