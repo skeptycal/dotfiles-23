@@ -114,6 +114,7 @@
 ;; Auto-modes
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . sass-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . ruby-mode))
@@ -122,8 +123,7 @@
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
-(setq web-mode-content-types-alist
-      '(("jsx"  . "\\.js[x]?\\'")))
+(setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
 
 ;; Auto-balance windows
 (add-hook 'window-size-change-functions 'balance-windows)
