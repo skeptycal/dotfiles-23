@@ -15,6 +15,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-start 2)
+ '(blink-cursor-delay 10000000)
+ '(blink-cursor-interval 1000000000000000)
  '(blink-cursor-mode nil)
  '(compilation-message-face (quote default))
  '(css-indent-offset 2)
@@ -37,6 +39,7 @@
  '(jsx-use-auto-complete t)
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("~/Documents/reading list.org")))
+ '(org-support-shift-select t)
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)

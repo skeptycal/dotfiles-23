@@ -12,7 +12,6 @@ alias ls='ls --color=auto'
 alias la='ls -al'
 alias emacs='emacsclient -nw -c -a ""'
 alias edit=emacs
-alias plaidchat='plaidchat --force-device-scale-factor=2'
 
 # # 256 colors ONLY IN FBTERM
 # [ -n "$FBTERM" ] && export TERM=fbterm
