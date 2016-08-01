@@ -1,6 +1,6 @@
 xrdb ~/.Xresources
 xmodmap ~/.Xmodmap
-setroot ~/Pictures/background.jpg
+setroot ~/Pictures/background-1.jpg
 # pulseaudio --start
 
 xset r rate 200 30 &
