@@ -7,187 +7,7 @@
 ;; I only put this part in because
 ;; of fucking flycheck anyway.
 
-;;; Code:
-
-;; show errors
-(setq eval-expression-debug-on-error t)
-
-;; A lil' performance
-(remove-hook 'find-file-hooks 'vc-find-file-hook)
-
-;; Nudity
-(transient-mark-mode t)     ;; show region, drop mark
-(global-font-lock-mode t)   ;; for all buffers
-(global-visual-line-mode t) ;; word-wrap
-(setq shift-select-mode t) ;; Shift select
-(show-paren-mode t)         ;; show matching parentheses
-(setq initial-scratch-message "")
-(setq inhibit-startup-screen t)
-(scroll-bar-mode -1)
-
-;; Scroll all the way to the end of the file
-(setq scroll-error-top-bottom t)
-
-;; Large file warning
-(setq large-file-warning-threshold 10000000)
-
-;; Plugins
-(add-to-list 'load-path "~/.emacs.d/lisp")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-
-;; Newlines
-(setq mode-require-final-newline t)
-
-;; Cursor blink
-(blink-cursor-mode nil)
-
-;; Vertical border
-(set-face-inverse-video-p 'vertical-border nil)
-(set-face-background 'vertical-border (face-background 'default))
-(set-display-table-slot standard-display-table
-                        'vertical-border
-                        (make-glyph-code ?┃))
-
-;; Don't use ring to kill lines
-(defun kill-without-ring ()
-  (interactive)
-  (delete-region (point)
-                 (save-excursion (move-end-of-line 1)
-                                 (point)))
-  (delete-char 1))
-(global-set-key (kbd "C-k") 'kill-without-ring)
-
-;; Foreign packages
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives
-               '("gnu" . "http://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t)
-  (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/") t))
-
-;; NEO-Tree
-(global-set-key (kbd "C-c C-v") 'neotree-toggle)
-
-;; Auto-modes
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.rb\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\Vagrantfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\Gemfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-(add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
-
-;; Suppress isearch messages
-(defadvice isearch-repeat (after isearch-no-fail activate)
-  (unless isearch-success
-    (ad-disable-advice 'isearch-repeat 'after 'isearch-no-fail)
-    (ad-activate 'isearch-repeat)
-    (isearch-repeat (if isearch-forward 'forward))
-    (ad-enable-advice 'isearch-repeat 'after 'isearch-no-fail)
-        (ad-activate 'isearch-repeat)))
-
-;; Bells
-(setq visible-bell nil)
-(setq ring-bell-function 'ignore)
-
-;; Balance windows
-(add-hook 'window-size-change-functions 'balance-windows)
-
-;; Hex colors
-(defvar hexcolour-keywords
-  '(("#[abcdef[:digit:]]\\{6\\}"
-     (0 (put-text-property (match-beginning 0)
-                           (match-end 0)
-                           'face (list :foreground
-                                       (match-string-no-properties 0)))))))
-(defun hexcolour-add-to-font-lock ()
-  (font-lock-add-keywords nil hexcolour-keywords))
-(add-hook 'css-mode-hook 'hexcolour-add-to-font-lock)
-
-;; Scrolling
-(setq redisplay-dont-pause t
-      scroll-margin 1
-      scroll-step 1
-      scroll-conservatively 10000
-      scroll-preserve-screen-position 1)
-
-;; Mouse
-(unless window-system
-  (require 'mouse)
-  (xterm-mouse-mode t)
-  (global-set-key [mouse-4] (lambda ()
-                              (interactive)
-                              (scroll-down 1)))
-  (global-set-key [mouse-5] (lambda ()
-                              (interactive)
-                              (scroll-up 1)))
-  (defun track-mouse (e))
-  (setq mouse-sel-mode t))
-
-;; Column numbers
-(setq column-number-mode t)
-
-;; Windmove iTerm2
-(global-set-key (kbd "ESC <up>") 'windmove-up)
-(global-set-key (kbd "ESC <down>") 'windmove-down)
-(global-set-key (kbd "ESC <left>") 'windmove-left)
-(global-set-key (kbd "ESC <right>") 'windmove-right)
-
-;; Font-face-under-cursor
-(defun what-face (pos)
-  (interactive "d")
-  (let ((face (or (get-char-property (point) 'read-face-name)
-                  (get-char-property (point) 'face))))
-    (if face (message "Face: %s" face) (message "No face at %d" pos))))
-
-;; Remove whitespace on save (web-mode)
-(add-hook 'web-mode-hook
-          (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-(add-hook 'ruby-mode-hook
-          (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-
-;; Replace selection
-(delete-selection-mode 1)
-
-;; Changes all yes/no questions to y/n type
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; Disable lockfiles in server mode
-(setq create-lockfiles nil)
-
-;; Store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
-;;; Encodings
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-
-;; Highlight
-(global-hl-line-mode 0)
-
-;; Hide menubar
-(menu-bar-mode -1)
-(tool-bar-mode 0)
-
-;; Soft Tabs
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
-
-;; JSX
-(setq web-mode-content-types-alist
-      '(("jsx"  . "\\.js[x]?\\'")))
+;;; Custom
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -195,7 +15,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-start 2)
- '(blink-cursor-interval 0.2)
+ '(blink-cursor-mode nil)
  '(compilation-message-face (quote default))
  '(css-indent-offset 2)
  '(cua-rectangle-modifier-key (quote meta))
@@ -213,38 +33,17 @@
  '(helm-move-to-line-cycle-in-source t)
  '(helm-scroll-amount 8)
  '(helm-split-window-in-side-p t)
- '(ido-cannot-complete-command (quote ido-next-match))
- '(ido-vertical-mode t)
- '(js2-allow-member-expr-as-function-name t)
- '(js2-basic-offset 2)
- '(js2-bounce-indent-p t)
- '(js2-global-externs nil)
- '(js2-highlight-level 3)
- '(js2-include-node-externs t)
- '(js2-include-rhino-externs t)
- '(js2-indent-switch-body t)
- '(js2-missing-semi-one-line-override t)
- '(js2-mode-indent-ignore-first-tab nil)
- '(js2-strict-inconsistent-return-warning nil)
- '(js2-strict-missing-semi-warning nil)
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("~/Documents/reading list.org")))
  '(ranger-deer-show-details nil)
- '(ranger-override-dired 1)
+ '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
  '(vc-follow-symlinks t)
- '(wakatime-api-key "c251e0c4-f6fb-4721-8a1e-cefea394f407")
- '(wakatime-cli-path "/Users/Jackson/Sites/wakatime/wakatime-cli.py")
  '(web-mode-attr-indent-offset 2)
  '(web-mode-attr-value-indent-offset 2)
  '(web-mode-code-indent-offset 2)
- '(web-mode-disable-auto-indentation t)
- '(web-mode-disable-auto-opening nil)
- '(web-mode-disable-auto-pairing nil)
- '(web-mode-enable-auto-indentation nil)
- '(web-mode-enable-control-block-indentation nil)
  '(web-mode-markup-indent-offset 2))
 
 (custom-set-faces
@@ -264,6 +63,7 @@
  '(helm-selection ((t (:inherit region :background "white" :foreground "black" :weight normal))))
  '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
  '(mode-line ((t (:background "black" :foreground "brightcyan" :inverse-video t :box nil))))
+ '(org-todo ((t (:background "red" :distant-foreground "red" :foreground "brightblack" :weight bold))))
  '(region ((t (:inverse-video t))))
  '(vertical-border ((t (:background "brightblack" :foreground "brightyellow"))))
  '(web-mode-function-call-face ((t (:inherit font-lock-function-name-face))))
@@ -274,7 +74,113 @@
  '(web-mode-javascript-string-face ((t (:inherit web-mode-string-face))))
  '(web-mode-variable-name-face ((t (:inherit default :foreground "magenta")))))
 
-;; Select keymap
+;;; My Code:
+
+;; Nudity
+(transient-mark-mode t)     ;; show region, drop mark
+(global-font-lock-mode t)   ;; for all buffers
+(global-visual-line-mode t) ;; word-wrap
+(setq shift-select-mode t) ;; Shift select
+(show-paren-mode t)         ;; show matching parentheses
+(setq initial-scratch-message "")
+(setq inhibit-startup-screen t)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(tool-bar-mode 0)
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+
+;; Vertical border
+(set-face-inverse-video-p 'vertical-border nil)
+(set-face-background 'vertical-border (face-background 'default))
+(set-display-table-slot standard-display-table
+                        'vertical-border
+                        (make-glyph-code ?┃))
+
+;; Foreign packages
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives
+               '("gnu" . "http://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives
+               '("marmalade" . "http://marmalade-repo.org/packages/") t))
+
+;; Auto-modes
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.rb\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Vagrantfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\Gemfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+(setq web-mode-content-types-alist
+      '(("jsx"  . "\\.js[x]?\\'")))
+
+;; Auto-balance windows
+(add-hook 'window-size-change-functions 'balance-windows)
+
+;; Pgdn & Pgup work properly
+(setq scroll-error-top-bottom t)
+
+;; Large file warning
+(setq large-file-warning-threshold 100000)
+
+;; Newlines
+(setq mode-require-final-newline t)
+
+;; Scrolling
+(setq redisplay-dont-pause t
+      scroll-margin 5
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
+
+;; Column numbers in modeline
+(setq column-number-mode t)
+
+;; Remove whitespace on save (web-mode)
+(add-hook 'web-mode-hook
+          (lambda ()
+            (add-to-list 'write-file-functions
+                         'delete-trailing-whitespace)))
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (add-to-list 'write-file-functions
+                         'delete-trailing-whitespace)))
+
+;; Replace selection
+(delete-selection-mode 1)
+
+;; Changes all yes/no questions to y/n type
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Disable lockfiles in server mode
+(setq create-lockfiles nil)
+
+;; Store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+;;; UTF-8 4 lyfe
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+;; Soft Tabs
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
+
+;; Region-Select keymapping
 (global-unset-key (vector (list 'shift 'left)))
 (global-unset-key (vector (list 'shift 'right)))
 (define-key input-decode-map "\e[1;2D" [S-left])
@@ -285,28 +191,6 @@
 ;; Auto close brackets
 (electric-pair-mode 1)
 
-;; Clojure
-(add-hook 'clojure-mode-hook #'smartparens-strict-mode)
-
-;; Clipboard interoperability
-;; (defun copy-from-osx ()
-;;   (shell-command-to-string "pbpaste"))
-;; (defun paste-to-osx (text &optional push)
-;;   (let ((process-connection-type nil))
-;;     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-;;       (process-send-string proc text)
-;;       (process-send-eof proc))))
-;; (setq interprogram-cut-function 'paste-to-osx)
-;; (setq interprogram-paste-function 'copy-from-osx)
-
-;; Save & compile
-(defun save-and-compile ()
-  (interactive)
-  (save-some-buffers 1)
-  (recompile))
-
-(global-set-key (kbd "C-c C-c") 'save-and-compile)
-
 ;; Solarized
 (load-theme 'solarized)
 
@@ -316,13 +200,11 @@
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; makes TAB work in terminal
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
 (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
-
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-c h l") 'helm-locate)
@@ -330,14 +212,7 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-mini)
 
-;; Golden ratio + helm resize
-;; (defun pl/helm-alive-p ()
-;;   (if (boundp 'helm-alive-p)
-;;       (symbol-value 'helm-alive-p)))
-
-;; (add-to-list 'golden-ratio-inhibit-functions 'pl/helm-alive-p)
-
-;; Projectile
+;; Helm + Projectile
 (helm-projectile-on)
 (projectile-global-mode)
 (global-set-key (kbd "C-x C-d") 'helm-projectile-find-file)
@@ -346,5 +221,18 @@
 ;; Auto complete
 (global-auto-complete-mode t)
 
-;; Ranger
-(ranger-mode)
+;; A lil' performance
+(remove-hook 'find-file-hooks 'vc-find-file-hook)
+
+;; Font-face-under-cursor
+(defun what-face (pos)
+  (interactive "d")
+  (let ((face (or (get-char-property (point) 'read-face-name)
+                  (get-char-property (point) 'face))))
+    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+
+;; Windmove
+(global-set-key (kbd "ESC <up>") 'windmove-up)
+(global-set-key (kbd "ESC <down>") 'windmove-down)
+(global-set-key (kbd "ESC <left>") 'windmove-left)
+(global-set-key (kbd "ESC <right>") 'windmove-right)
