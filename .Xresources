@@ -10,6 +10,8 @@ Xft.lcdfilter: lcddefault
 
 ! rxvt settings -------------------------------------------
 
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 URxvt.intensityStyles: false
 URxvt.depth: 32
 URxvt.transparent: false
@@ -18,6 +20,11 @@ URxvt.scrollBar: false
 URxvt.letterSpace: -2
 URxvt.font:     xft:Consolas:style=Semibold:size=10:antialias=true:hinting=slight
 URxvt.boldFont: xft:Consolas:style=bold:size=10:antialias=true:hinting=slight
+URxvt.perl-ext-common: default,resize-font,font-size
+! URxvt.keysym.C-Up:     perl:font-size:increase
+! URxvt.keysym.C-Down:   perl:font-size:decrease
+! URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+! URxvt.keysym.C-S-Down: perl:font-size:decglobal
 
 ! colors (solarized) ---------------------------------------
 

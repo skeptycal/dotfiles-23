@@ -1,5 +1,7 @@
-remove control = Control_L
-clear mod4
-keycode 134 = Control_L
-add control = Control_L
-add mod4 = Super_L Super_R
+! Swap right control and right alt
+remove Control = Control_R
+remove Mod1 = Alt_R
+keycode 105 = Alt_R
+keycode 108 = Control_R
+add Control = Control_R
+add Mod1 = Alt_R
