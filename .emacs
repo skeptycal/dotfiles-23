@@ -239,3 +239,9 @@
 (global-set-key (kbd "ESC <down>") 'windmove-down)
 (global-set-key (kbd "ESC <left>") 'windmove-left)
 (global-set-key (kbd "ESC <right>") 'windmove-right)
+
+;; Hook flyspell into org-mode
+(add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'flyspell-buffer)
+(add-hook 'org-mode-hook 'wc-mode)
+(add-hook 'org-mode-hook 'writeroom-mode)
