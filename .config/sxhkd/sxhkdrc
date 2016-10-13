@@ -35,3 +35,6 @@ super + Return
 
 super + space
   dmenu_run -b -nb '#002b36' -nf '#839496'  -sf black -sb darkgrey
+
+super + w
+  xdotool getwindowfocus windowkill

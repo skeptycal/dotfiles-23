@@ -74,3 +74,5 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 if [[ -z $DISPLAY ]]; then
   startx -- -ardelay 200 -arinterval 30
 fi
+
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
