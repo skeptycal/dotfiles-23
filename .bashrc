@@ -13,9 +13,6 @@ alias la='ls -al'
 alias emacs='emacsclient -nw -c -a ""'
 alias edit=emacs
 
-# # 256 colors ONLY IN FBTERM
-# [ -n "$FBTERM" ] && export TERM=fbterm
-
 export ALTERNATE_EDITOR=""
 export EDITOR=emacsclient
 export MAIL=/var/spool/mail/coleman
@@ -73,3 +70,7 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWCOLORHINTS="true"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+if [[ -z $DISPLAY ]]; then
+  startx -- -ardelay 200 -arinterval 30
+fi

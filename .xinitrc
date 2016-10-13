@@ -1,16 +1,23 @@
 # Solarized colors & font settings
 xrdb ~/.Xresources
 # background
-setroot -z ~/Pictures/paintings/the\ dream.jpg
-# key repeat
-xset r rate 200 30
-# play/pause/next/vol etc.
-xmodmap ~/.Xmodmap
-# terminal
-urxvt &
+setroot -z ~/Pictures/paintings/fish.jpg
+# cursor acceleration
+xset m 3/2 0
+# keyboard
+# xset r rate 200 30
+# setxkbmap -option 'ctrl:ralt_rctrl,ctrl:rctrl_ralt'
+# shadows
+compton -o 0.3 -r 10 -D 1 &
 # flux
 redshift &
-# events
+# notifications
+twmnd &
+# keys
 sxhkd &
+# terminal
+urxvt &
+# notifications
+statnot &
 # windows
-exec bspwm
+exec karmen
