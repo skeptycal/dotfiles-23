@@ -1,0 +1,7 @@
+set download-path=/home/coleman/Downloads
+set editor-command="emacs"
+set home-page=http://gariety.xxx/
+set fontsize=14
+set monofontsize=14
+shortcut-add gl=https://www.google.com/search?q=$0
+shortcut-default gl

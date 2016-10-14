@@ -29,7 +29,6 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
     xbacklight -dec 20%
 
-# dmenu
 super + Return
 	urxvt
 
