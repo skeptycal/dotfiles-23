@@ -16,6 +16,7 @@ alias edit=emacs
 export ALTERNATE_EDITOR=""
 export EDITOR=emacsclient
 export MAIL=/var/spool/mail/coleman
+export BROWSER=vimb
 
 # git
 source ~/.git-prompt.sh

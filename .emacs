@@ -42,7 +42,7 @@
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
