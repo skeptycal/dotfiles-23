@@ -7,7 +7,7 @@ xset m 3/2 0
 # shadows
 compton -o 0.3 -r 10 --no-fading-openclose &
 # flux
-redshift &
+redshift -r &
 # notifications
 twmnd &
 # keys

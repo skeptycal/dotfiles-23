@@ -12,6 +12,7 @@ alias ls='ls --color=auto'
 alias la='ls -al'
 alias emacs='emacsclient -nw -c -a ""'
 alias edit=emacs
+alias startx='startx -- -ardelay 200 -arinterval 30'
 
 export ALTERNATE_EDITOR=""
 export EDITOR=emacsclient
