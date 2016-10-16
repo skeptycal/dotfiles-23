@@ -17,4 +17,4 @@ sxhkd &
 # terminal
 urxvt &
 # windows
-exec karmen
+exec karmen -font "Source Sans Pro"
