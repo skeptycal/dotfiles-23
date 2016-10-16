@@ -29,11 +29,7 @@ URxvt.geometry: 120x36
 URxvt.iso14755: False
 URxvt.perl-ext-common: default,clipboard
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.keysym.S-Up:    \033[1;2A
-URxvt.keysym.S-Down:  \033[1;2B
-URxvt.keysym.S-Right: \033[1;2C
-URxvt.keysym.S-Left:  \033[1;2D
-! colors (solarized) ---------------------------------------
+
 
 ! Solarized color scheme for the X Window System
 !

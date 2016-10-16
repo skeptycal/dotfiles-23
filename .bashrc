@@ -10,13 +10,12 @@
 
 alias ls='ls --color=auto'
 alias la='ls -al'
-alias emacs='emacsclient -c'
-alias edit=emacs
+alias emacs='emacsclient -nw -c -a ""'
+alias edit='emacsclient -nw -c -a ""'
 alias startx='startx -- -ardelay 200 -arinterval 30'
-alias emacsd='/usr/bin/emacs --daemon'
 
 export ALTERNATE_EDITOR=""
-export EDITOR='emacsclient -c'
+export EDITOR='emacsclient -nw -c a ""'
 export MAIL=/var/spool/mail/coleman
 export BROWSER=vimb
 

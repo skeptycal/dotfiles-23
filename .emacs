@@ -1,4 +1,4 @@
-;;; .emacs --- A dotfile by Coleman Gariety
+;; .emacs --- A dotfile by Coleman Gariety
 
 ;;; Commentary:
 
@@ -24,7 +24,6 @@
  '(custom-safe-themes
    (quote
     ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
- '(frame-background-mode (quote dark))
  '(fringe-mode nil nil (fringe))
  '(helm-autoresize-max-height 15)
  '(helm-autoresize-min-height 5)
@@ -38,7 +37,6 @@
  '(helm-split-window-in-side-p t)
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
- '(line-spacing 0.2)
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("~/Documents/reading list.org")))
  '(org-support-shift-select t)
@@ -60,23 +58,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#002b36" :foreground "#839496" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 99 :width normal :foundry "MS  " :family "Consolas"))))
  '(border ((t nil)))
  '(cursor ((t (:background "#93a1a1" :height 1.0))))
  '(font-lock-variable-name-face ((t (:foreground "brightmagenta"))))
  '(helm-bookmark-directory ((t (:inherit nil))))
  '(helm-buffer-directory ((t (:foreground "DarkRed"))))
- '(helm-buffer-file ((t (:inherit font-lock-builtin-face))))
- '(helm-ff-directory ((t (:background "brightblack" :foreground "#859900"))))
+ '(helm-ff-directory ((t (:background "brightblack" :foreground "green"))))
  '(helm-ff-dotted-directory ((t nil)))
- '(helm-ff-executable ((t (:foreground "#dc322f" :weight bold))))
- '(helm-header ((t (:background "brightyellow" :foreground "#002b36"))))
+ '(helm-ff-executable ((t (:foreground "red" :weight bold))))
+ '(helm-header ((t (:background "brightyellow" :foreground "black"))))
  '(helm-header-line-left-margin ((t nil)))
  '(helm-prefarg ((t (:foreground "green"))))
- '(helm-selection ((t (:inherit region :background "#eee8d5" :foreground "#073642" :weight normal))))
- '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "#d33682" :weight bold))))
- '(mode-line ((t (:background "#002b36" :foreground "#93a1a1" :inverse-video t :box nil))))
- '(mode-line-inactive ((t (:background "#002b36" :foreground "#586e75" :inverse-video t :box nil))))
+ '(helm-selection ((t (:inherit region :background "white" :foreground "black" :weight normal))))
+ '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
+ '(mode-line ((t (:background "black" :foreground "brightcyan" :inverse-video t :box nil))))
  '(org-todo ((t (:background "red" :distant-foreground "red" :foreground "brightblack" :weight bold))))
  '(region ((t (:inverse-video t))))
  '(vertical-border ((t (:background "brightblack" :foreground "brightyellow"))))
@@ -84,9 +79,9 @@
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "yellow"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "white"))))
  '(web-mode-html-tag-face ((t (:foreground "white"))))
- '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "#586e75"))))
+ '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "red"))))
  '(web-mode-javascript-string-face ((t (:inherit web-mode-string-face))))
- '(web-mode-variable-name-face ((t (:inherit default :foreground "#d33682")))))
+ '(web-mode-variable-name-face ((t (:inherit default :foreground "magenta")))))
 
 ;;; My Code:
 
@@ -274,12 +269,18 @@
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 ;; Windmove
-(windmove-default-keybindings 'super)
-(global-set-key (kbd "<s-backspace>") 'delete-window)
-(global-set-key (kbd "S-s-<left>") 'split-window-right)
-(global-set-key (kbd "S-s-<right>") 'split-window-right)
-(global-set-key (kbd "S-s-<up>") 'split-window-below)
-(global-set-key (kbd "S-s-<down>") 'split-window-below)
+(global-set-key (kbd "ESC <up>") 'windmove-up)
+(global-set-key (kbd "ESC <down>") 'windmove-down)
+(global-set-key (kbd "ESC <left>") 'windmove-left)
+(global-set-key (kbd "ESC <right>") 'windmove-right)
+
+(global-unset-key (kbd "M-DEL"))
+(global-set-key (kbd "M-DEL") 'delete-window)
+(global-set-key (kbd "ESC S-<up>") 'split-window-below)
+(global-set-key (kbd "ESC S-<down>") 'split-window-below)
+(global-set-key (kbd "ESC S-<left>") 'split-window-right)
+(global-set-key (kbd "ESC S-<right>") 'split-window-right)
+(global-set-key (kbd "M-RET") 'split-window-right)
 
 ;; Hook flyspell into org-mode
 (add-hook 'org-mode-hook 'flyspell-mode)
@@ -345,3 +346,45 @@
 (defun sudired ()
   (interactive)
   (dired "/sudo::/"))
+
+;; Haskell
+(custom-set-variables '(haskell-process-type 'stack-ghci))
+
+;; Evil Mode
+(evil-mode 1)
+(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+(define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-normal-state-map "\C-f" 'evil-forward-char)
+(define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+(define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+(define-key evil-normal-state-map "\C-b" 'evil-backward-char)
+(define-key evil-insert-state-map "\C-b" 'evil-backward-char)
+(define-key evil-visual-state-map "\C-b" 'evil-backward-char)
+(define-key evil-normal-state-map "\C-d" 'evil-delete-char)
+(define-key evil-insert-state-map "\C-d" 'evil-delete-char)
+(define-key evil-visual-state-map "\C-d" 'evil-delete-char)
+(define-key evil-normal-state-map "\C-n" 'evil-next-line)
+(define-key evil-insert-state-map "\C-n" 'evil-next-line)
+(define-key evil-visual-state-map "\C-n" 'evil-next-line)
+(define-key evil-normal-state-map "\C-p" 'evil-previous-line)
+(define-key evil-insert-state-map "\C-p" 'evil-previous-line)
+(define-key evil-visual-state-map "\C-p" 'evil-previous-line)
+(define-key evil-normal-state-map "\C-w" 'evil-delete)
+(define-key evil-insert-state-map "\C-w" 'evil-delete)
+(define-key evil-visual-state-map "\C-w" 'evil-delete)
+(define-key evil-normal-state-map "\C-y" 'yank)
+(define-key evil-insert-state-map "\C-y" 'yank)
+(define-key evil-visual-state-map "\C-y" 'yank)
+(define-key evil-normal-state-map "\C-k" 'kill-line)
+(define-key evil-insert-state-map "\C-k" 'kill-line)
+(define-key evil-visual-state-map "\C-k" 'kill-line)
+(define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
+(define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
+(define-key evil-normal-state-map (kbd "TAB") 'evil-undefine)
+
+(defun evil-undefine ()
+ (interactive)
+ (let (evil-mode-map-alist)
+   (call-interactively (key-binding (this-command-keys))))
