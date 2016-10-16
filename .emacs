@@ -24,6 +24,7 @@
  '(custom-safe-themes
    (quote
     ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
+ '(frame-background-mode (quote dark))
  '(fringe-mode nil nil (fringe))
  '(helm-autoresize-max-height 15)
  '(helm-autoresize-min-height 5)
@@ -37,15 +38,17 @@
  '(helm-split-window-in-side-p t)
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
+ '(line-spacing 0.2)
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("~/Documents/reading list.org")))
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
+ '(showkey-log-mode nil)
  '(vc-follow-symlinks t)
  '(web-mode-attr-indent-offset 2)
  '(web-mode-attr-value-indent-offset 2)
@@ -57,18 +60,22 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#002b36" :foreground "#839496" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 95 :width normal :foundry "MS  " :family "Consolas"))))
  '(border ((t nil)))
  '(font-lock-variable-name-face ((t (:foreground "brightmagenta"))))
  '(helm-bookmark-directory ((t (:inherit nil))))
  '(helm-buffer-directory ((t (:foreground "DarkRed"))))
- '(helm-ff-directory ((t (:background "brightblack" :foreground "green"))))
+ '(helm-buffer-file ((t (:inherit font-lock-builtin-face))))
+ '(helm-ff-directory ((t (:background "brightblack" :foreground "#859900"))))
  '(helm-ff-dotted-directory ((t nil)))
- '(helm-ff-executable ((t (:foreground "red" :weight bold))))
- '(helm-header ((t (:background "brightyellow" :foreground "black"))))
+ '(helm-ff-executable ((t (:foreground "#dc322f" :weight bold))))
+ '(helm-header ((t (:background "brightyellow" :foreground "#002b36"))))
  '(helm-header-line-left-margin ((t nil)))
- '(helm-selection ((t (:inherit region :background "white" :foreground "black" :weight normal))))
- '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
- '(mode-line ((t (:background "black" :foreground "brightcyan" :inverse-video t :box nil))))
+ '(helm-prefarg ((t (:foreground "green"))))
+ '(helm-selection ((t (:inherit region :background "#eee8d5" :foreground "#073642" :weight normal))))
+ '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "#d33682" :weight bold))))
+ '(mode-line ((t (:background "#002b36" :foreground "#93a1a1" :inverse-video t :box nil))))
+ '(mode-line-inactive ((t (:background "#002b36" :foreground "#586e75" :inverse-video t :box nil))))
  '(org-todo ((t (:background "red" :distant-foreground "red" :foreground "brightblack" :weight bold))))
  '(region ((t (:inverse-video t))))
  '(vertical-border ((t (:background "brightblack" :foreground "brightyellow"))))
@@ -76,9 +83,9 @@
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "yellow"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "white"))))
  '(web-mode-html-tag-face ((t (:foreground "white"))))
- '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "red"))))
+ '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "#586e75"))))
  '(web-mode-javascript-string-face ((t (:inherit web-mode-string-face))))
- '(web-mode-variable-name-face ((t (:inherit default :foreground "magenta")))))
+ '(web-mode-variable-name-face ((t (:inherit default :foreground "#d33682")))))
 
 ;;; My Code:
 
@@ -265,18 +272,13 @@
 ;; A lil' performance
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-;; Font-face-under-cursor
-(defun what-face (pos)
-  (interactive "d")
-  (let ((face (or (get-char-property (point) 'read-face-name)
-                  (get-char-property (point) 'face))))
-    (if face (message "Face: %s" face) (message "No face at %d" pos))))
-
 ;; Windmove
-(global-set-key (kbd "ESC <up>") 'windmove-up)
-(global-set-key (kbd "ESC <down>") 'windmove-down)
-(global-set-key (kbd "ESC <left>") 'windmove-left)
-(global-set-key (kbd "ESC <right>") 'windmove-right)
+(windmove-default-keybindings 'super)
+(global-set-key (kbd "<s-backspace>") 'delete-window)
+(global-set-key (kbd "S-s-<left>") 'split-window-right)
+(global-set-key (kbd "S-s-<right>") 'split-window-right)
+(global-set-key (kbd "S-s-<up>") 'split-window-below)
+(global-set-key (kbd "S-s-<down>") 'split-window-below)
 
 ;; Hook flyspell into org-mode
 (add-hook 'org-mode-hook 'flyspell-mode)
@@ -336,3 +338,9 @@
           (message "No recognized program file suffix for this file."))))))
 
 (global-set-key (kbd "<f8>") 'xah-run-current-file)
+
+;; sudo dired
+(require 'tramp)
+(defun sudired ()
+  (interactive)
+  (dired "/sudo::/"))

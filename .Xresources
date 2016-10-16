@@ -9,8 +9,8 @@ Xft.antialias: true
 Xft.hinting: true
 Xft.hintstyle: hintslight
 Xft.dpi: 180
-Xft.rgba: rgb
-Xft.lcdfilter: lcddefault
+! Xft.rgba: rgb
+! Xft.lcdfilter: lcddefault
 
 ! rxvt settings -------------------------------------------
 
@@ -22,14 +22,17 @@ URxvt.transparent: false
 URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 URxvt.letterSpace: -2
-URxvt.font:     xft:Consolas:style=Semibold:size=10:antialias=true:hinting=slight
+URxvt.font:      xft:Consolas:style=Semibold:size=10:antialias=true:hinting=slight
 URxvt.boldFont: xft:Consolas:style=bold:size=10:antialias=true:hinting=slight
 URxvt.perl-ext-common: default,resize-font,font-size
 URxvt.geometry: 120x36
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
 URxvt.perl-ext-common: default,clipboard
-
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.keysym.S-Up:    \033[1;2A
+URxvt.keysym.S-Down:  \033[1;2B
+URxvt.keysym.S-Right: \033[1;2C
+URxvt.keysym.S-Left:  \033[1;2D
 ! colors (solarized) ---------------------------------------
 
 ! Solarized color scheme for the X Window System
