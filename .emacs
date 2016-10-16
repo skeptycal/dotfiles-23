@@ -44,7 +44,7 @@
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (intero helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -60,8 +60,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#002b36" :foreground "#839496" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 95 :width normal :foundry "MS  " :family "Consolas"))))
+ '(default ((t (:inherit nil :stipple nil :background "#002b36" :foreground "#839496" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 108 :width normal :foundry "MS  " :family "Consolas"))))
  '(border ((t nil)))
+ '(cursor ((t (:background "#93a1a1" :height 1.0))))
  '(font-lock-variable-name-face ((t (:foreground "brightmagenta"))))
  '(helm-bookmark-directory ((t (:inherit nil))))
  '(helm-buffer-directory ((t (:foreground "DarkRed"))))

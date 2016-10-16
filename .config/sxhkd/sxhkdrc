@@ -32,7 +32,7 @@ XF86MonBrightnessDown
 super + Return
 	urxvt
 
-super + space
+shift + super + Return
   dmenu_run -b -nb '#002b36' -nf '#839496'  -sf black -sb darkgrey
 
 ctrl + alt + super + Escape
