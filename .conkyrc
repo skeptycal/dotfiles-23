@@ -6,7 +6,7 @@ own_window yes
 own_window_type override
 alignment top_left
 uppercase no
-minimum_size 400 400
+minimum_size 300 300
 imlib_cache_size 0
 gap_y 25
 gap_x 25
@@ -19,4 +19,4 @@ border_outer_margin 0
 border_width 0
 
 TEXT
-${image /home/coleman/Git/cmus-conky/art -p 0,0 -s 400x400}
+${image /home/coleman/Git/cmus-conky/art -p 0,0 -s 300x300}

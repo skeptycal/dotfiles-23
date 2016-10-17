@@ -2,6 +2,21 @@
 
 Xcursor.size: 40
 
+XClock*foreground: #fbfbfb
+XClock*background: #000018
+XClock*update: 1
+XClock*geometry:          210x210+1020+12
+XClock.Clock.majorColor:  rgba:f0/f0/19/ff
+XClock.Clock.minorColor:  rgba:a0/c0/f0/ff
+XClock.Clock.hourColor:   rgba:c9/66/11/ff
+XClock.Clock.minuteColor: rgba:00/82/9f/ff
+XClock.Clock.secondColor: rgba:50/93/30/ff
+!XClock*majorColor:  rgba:f0/f0/19/7b
+!XClock*minorColor:  rgba:a0/c0/f0/c0
+!XClock*hourColor:   rgba:c9/66/11/72
+!XClock*minuteColor: rgba:00/82/9f/72
+!XClock*secondColor: rgba:50/93/30/6f
+
 ! font settings -------------------------------------------
 
 Xft.autohint: true

@@ -41,7 +41,7 @@ export GIT_PS1_SHOWSTASHSTATE="true"
 export GIT_PS1_SHOWUNTRACKEDFILES="true"
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWCOLORHINTS="true"
-precmd () { __git_ps1 "%F{magenta}%n@%m %F{white}~%f " " $ " "(%s)" }
+precmd () { __git_ps1 "%F{magenta}%n@%m %F{white}%~%f " " $ " "(%s)" }
 
 # AUTOSUGGESTIONS
 source ~/Git/zsh-autosuggestions/zsh-autosuggestions.zsh

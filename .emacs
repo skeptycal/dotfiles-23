@@ -45,7 +45,7 @@
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -280,7 +280,6 @@
 (global-set-key (kbd "ESC <left>") 'windmove-left)
 (global-set-key (kbd "ESC <right>") 'windmove-right)
 
-(global-unset-key (kbd "M-DEL"))
 (global-set-key (kbd "M-DEL") 'delete-window)
 
 (global-set-key (kbd "ESC S-<up>") 'split-window-below)
@@ -288,7 +287,7 @@
 (global-set-key (kbd "ESC S-<left>") 'split-window-right)
 (global-set-key (kbd "ESC S-<right>") 'split-window-right)
 
-(global-set-key (kbd "M-RET") 'split-window-right)
+(global-set-key (kbd "M-RET") 'evil-window-new)
 
 ;; Hook flyspell into org-mode
 (add-hook 'org-mode-hook 'flyspell-mode)
@@ -378,3 +377,8 @@
 (setq haskell-process-use-ghci t)
 (setq haskell-process-args-ghci '("ghci"))
 
+; Evil Mode
+(evil-mode 1)
+(require 'evil-org)
+(evil-define-key 'normal evil-org-mode-map
+  (kbd "TAB") 'org-cycle)

@@ -4,6 +4,8 @@ xrdb ~/.Xresources
 setroot -z ~/Pictures/paintings/fish.jpg
 # cursor acceleration
 xset m 3/2 0
+# internal keyboard
+setxkbmap -device 3 -option 'ctrl:rwin_rctrl,ctrl:ralt_rctrl'
 # shadows
 compton -o 0.3 -r 10 --no-fading-openclose &
 # album art
