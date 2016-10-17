@@ -25,6 +25,9 @@
    (quote
     ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
  '(fringe-mode nil nil (fringe))
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-log t)
+ '(haskell-process-suggest-remove-import-lines t)
  '(helm-autoresize-max-height 15)
  '(helm-autoresize-min-height 5)
  '(helm-autoresize-mode t)
@@ -42,7 +45,7 @@
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (intero helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -269,6 +272,9 @@
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 ;; Windmove
+(global-unset-key (kbd "ESC TAB"))
+(global-set-key (kbd "ESC TAB") 'other-window)
+
 (global-set-key (kbd "ESC <up>") 'windmove-up)
 (global-set-key (kbd "ESC <down>") 'windmove-down)
 (global-set-key (kbd "ESC <left>") 'windmove-left)
@@ -276,10 +282,12 @@
 
 (global-unset-key (kbd "M-DEL"))
 (global-set-key (kbd "M-DEL") 'delete-window)
+
 (global-set-key (kbd "ESC S-<up>") 'split-window-below)
 (global-set-key (kbd "ESC S-<down>") 'split-window-below)
 (global-set-key (kbd "ESC S-<left>") 'split-window-right)
 (global-set-key (kbd "ESC S-<right>") 'split-window-right)
+
 (global-set-key (kbd "M-RET") 'split-window-right)
 
 ;; Hook flyspell into org-mode
@@ -310,6 +318,7 @@
            ("latex" . "pdflatex")
            ("java" . "javac")
            ("scm" . "chibi-scheme")
+           ("hs" . "runghc")
            ;; ("pov" . "/usr/local/bin/povray +R2 +A0.1 +J1.2 +Am2 +Q9 +H480 +W640")
            ))
 
@@ -348,4 +357,24 @@
   (dired "/sudo::/"))
 
 ;; Haskell
-(custom-set-variables '(haskell-process-type 'stack-ghci))
+
+(defun haskell-load-and-run-stationary ()
+  "Loads and runs the current Haskell file."
+  (interactive)
+  (let ((start-buffer (current-buffer)))
+    (inferior-haskell-load-and-run inferior-haskell-run-command)
+    (sleep-for 0 100)
+    (end-of-buffer)
+    (pop-to-buffer start-buffer)))
+
+(add-hook 'haskell-mode-hook 'auto-complete-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(eval-after-load 'haskell-mode '(progn
+                                  (define-key haskell-mode-map (kbd "C-c C-e") 'haskell-load-and-run-stationary)))
+
+(setq haskell-process-type 'ghci)
+(setq haskell-process-path-ghci "stack")
+(setq haskell-process-use-ghci t)
+(setq haskell-process-args-ghci '("ghci"))
+

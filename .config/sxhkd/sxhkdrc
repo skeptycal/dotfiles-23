@@ -29,6 +29,13 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
     xbacklight -dec 20%
 
+XF86KbdBrightnessDown
+    /usr/local/bin/kb-light.py -
+
+XF86KbdBrightnessUp
+    /usr/local/bin/kb-light.py +
+    
+
 super + Return
 	urxvt
 
