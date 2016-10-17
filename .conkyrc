@@ -1,0 +1,22 @@
+# Conky configuration
+out_to_console no
+update_interval 1
+double_buffer yes
+own_window yes
+own_window_type override
+alignment top_left
+uppercase no
+minimum_size 400 400
+imlib_cache_size 0
+gap_y 25
+gap_x 25
+
+# borders
+draw_borders no
+draw_graph_borders no
+border_inner_margin 0
+border_outer_margin 0
+border_width 0
+
+TEXT
+${image /home/coleman/Git/cmus-conky/art -p 0,0 -s 400x400}
