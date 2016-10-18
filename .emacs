@@ -24,7 +24,6 @@
  '(custom-safe-themes
    (quote
     ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
- '(fringe-mode nil nil (fringe))
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
@@ -74,6 +73,7 @@
  '(helm-prefarg ((t (:foreground "green"))))
  '(helm-selection ((t (:inherit region :background "white" :foreground "black" :weight normal))))
  '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
+ '(linum ((t (:background "brightblack" :foreground "brightgreen" :underline nil))))
  '(mode-line ((t (:background "black" :foreground "brightcyan" :inverse-video t :box nil))))
  '(org-todo ((t (:background "red" :distant-foreground "red" :foreground "brightblack" :weight bold))))
  '(region ((t (:inverse-video t))))
@@ -365,8 +365,9 @@
 ; Evil Mode
 (evil-mode 1)
 (require 'evil-org)
-(evil-define-key 'normal evil-org-mode-map
-  (kbd "TAB") 'org-cycle)
+(setq evil-want-C-u-scroll t)
+(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+(define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
 (define-key evil-insert-state-map "\C-e" 'end-of-line)
 (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
@@ -374,6 +375,8 @@
 (define-key evil-normal-state-map "\C-k" 'kill-line)
 (define-key evil-insert-state-map "\C-k" 'kill-line)
 (define-key evil-visual-state-map "\C-k" 'kill-line)
+(evil-define-key 'normal evil-org-mode-map
+  (kbd "TAB") 'org-cycle)
 
 ;; Windmove
 (windmove-default-keybindings 'ctrl)
