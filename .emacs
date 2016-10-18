@@ -45,7 +45,7 @@
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (slime evil-surround god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -331,6 +331,7 @@
           (message "No recognized program file suffix for this file."))))))
 
 (global-set-key (kbd "<f8>") 'xah-run-current-file)
+(global-set-key (kbd "C-c C-s") 'xah-run-current-file)
 
 ;; sudo dired
 (require 'tramp)
@@ -368,8 +369,12 @@
 
 ;; Windmove
 (windmove-default-keybindings 'ctrl)
+(global-set-key (kbd "M-TAB") 'other-window)
 
 ;; Org mode
 (setq org-log-done 'time)
 (global-unset-key "\C-ca")
 (global-set-key "\C-ca" 'org-agenda)
+
+;; Schem
+(setq scheme-program-name "chibi-scheme")
