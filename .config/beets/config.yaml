@@ -1,0 +1,4 @@
+directory: /home/coleman/Music
+plugins: fetchart missing embedart
+fetchart:
+    maxwidth: 500

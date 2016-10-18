@@ -1,0 +1,9 @@
+[user]
+	name = Coleman
+	email = jackson@gariety.xxx
+[credential]
+	helper = cache --timeout=186400
+[pull]
+	rebase = true
+[core]
+	editor = "emacsclient -nw -c -a ''"
