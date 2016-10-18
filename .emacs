@@ -41,11 +41,11 @@
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
  '(magit-diff-use-overlays nil)
- '(org-agenda-files (quote ("~/Documents/reading list.org")))
+ '(org-agenda-files (quote ("~/Org/todo.org")))
  '(org-support-shift-select t)
  '(package-selected-packages
    (quote
-    (evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -271,23 +271,6 @@
 ;; A lil' performance
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-;; Windmove
-(global-unset-key (kbd "ESC TAB"))
-(global-set-key (kbd "ESC TAB") 'other-window)
-
-(global-set-key (kbd "ESC <up>") 'windmove-up)
-(global-set-key (kbd "ESC <down>") 'windmove-down)
-(global-set-key (kbd "ESC <left>") 'windmove-left)
-(global-set-key (kbd "ESC <right>") 'windmove-right)
-
-(global-set-key (kbd "M-DEL") 'delete-window)
-
-(global-set-key (kbd "ESC S-<up>") 'split-window-below)
-(global-set-key (kbd "ESC S-<down>") 'split-window-below)
-(global-set-key (kbd "ESC S-<left>") 'split-window-right)
-(global-set-key (kbd "ESC S-<right>") 'split-window-right)
-
-(global-set-key (kbd "M-RET") 'evil-window-new)
 
 ;; Hook flyspell into org-mode
 (add-hook 'org-mode-hook 'flyspell-mode)
@@ -335,7 +318,7 @@
     (setq -cmd-str (concat -prog-name " \""   -fname "\""))
 
     (cond
-     ((string-equal -fSuffix "el") (load -fname))
+    ((string-equal -fSuffix "el") (load -fname))
      ((string-equal -fSuffix "java")
       (progn
         (shell-command -cmd-str "*xah-run-current-file output*" )
@@ -382,3 +365,11 @@
 (require 'evil-org)
 (evil-define-key 'normal evil-org-mode-map
   (kbd "TAB") 'org-cycle)
+
+;; Windmove
+(windmove-default-keybindings 'ctrl)
+
+;; Org mode
+(setq org-log-done 'time)
+(global-unset-key "\C-ca")
+(global-set-key "\C-ca" 'org-agenda)

@@ -13,7 +13,7 @@ compinit
 
 # X
 if [[ -z $DISPLAY ]]; then
-  startx -- -ardelay 200 -arinterval 30
+  startx -- -ardelay 200 -arinterval 40
 fi
 
 # Ruby
@@ -23,7 +23,7 @@ alias ls='ls --color=auto'
 alias la='ls -al'
 alias emacs='emacsclient -nw -c -a ""'
 alias edit='emacsclient -nw -c -a ""'
-alias startx='startx -- -ardelay 200 -arinterval 30'
+alias startx='startx -- -ardelay 200 -arinterval 40'
 
 export ALTERNATE_EDITOR=""
 export EDITOR='emacsclient -nw -c a ""'
@@ -46,3 +46,6 @@ precmd () { __git_ps1 "%F{magenta}%n@%m %F{white}%~%f " " $ " "(%s)" }
 # AUTOSUGGESTIONS
 source ~/Git/zsh-autosuggestions/zsh-autosuggestions.zsh
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=23'
+
+# bind key
+bindkey '^ ' autosuggest-accept
