@@ -167,6 +167,7 @@
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+(add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
 (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
 
 ;; Auto-balance windows
@@ -366,6 +367,13 @@
 (require 'evil-org)
 (evil-define-key 'normal evil-org-mode-map
   (kbd "TAB") 'org-cycle)
+(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+(define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-normal-state-map "\C-k" 'kill-line)
+(define-key evil-insert-state-map "\C-k" 'kill-line)
+(define-key evil-visual-state-map "\C-k" 'kill-line)
 
 ;; Windmove
 (windmove-default-keybindings 'ctrl)
