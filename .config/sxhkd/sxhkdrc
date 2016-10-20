@@ -36,10 +36,10 @@ XF86KbdBrightnessUp
     /usr/local/bin/kb-light.py +
     
 
-super + Return
+alt + Return
 	urxvt
 
-shift + super + Return
+super + Return
   dmenu_run -b -nb '#002b36' -nf '#839496'  -sf black -sb darkgrey
 
 ctrl + alt + super + Escape

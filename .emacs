@@ -274,9 +274,8 @@
 
 
 ;; Hook flyspell into org-mode
-(add-hook 'org-mode-hook 'flyspell-mode)
-(add-hook 'org-mode-hook 'flyspell-buffer)
-(add-hook 'org-mode-hook 'wc-mode)
+(add-hook 'org-mode-hook 'turn-on-flyspell)
+(add-hook 'org-mode-hook 'wc-goal-mode)
 
 ;; Xah Run Current File
 (defun xah-run-current-file ()
@@ -368,17 +367,6 @@
 (setq evil-want-C-u-scroll t)
 (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
-(define-key evil-normal-state-map "\C-a" 'evil-beginning-of-line)
-(define-key evil-normal-state-map "\C-a" 'evil-beginning-of-line)
-(define-key evil-insert-state-map "\C-a" 'beginning-of-line)
-(define-key evil-visual-state-map "\C-a" 'evil-beginning-of-line)
-(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
-(define-key evil-insert-state-map "\C-e" 'end-of-line)
-(define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
-(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
-(define-key evil-normal-state-map "\C-k" 'kill-line)
-(define-key evil-insert-state-map "\C-k" 'kill-line)
-(define-key evil-visual-state-map "\C-k" 'kill-line)
 (evil-define-key 'normal evil-org-mode-map
   (kbd "TAB") 'org-cycle)
 
