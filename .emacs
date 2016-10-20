@@ -82,7 +82,7 @@
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "yellow"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "white"))))
  '(web-mode-html-tag-face ((t (:foreground "white"))))
- '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "red"))))
+ '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "brightgreen"))))
  '(web-mode-javascript-string-face ((t (:inherit web-mode-string-face))))
  '(web-mode-variable-name-face ((t (:inherit default :foreground "magenta")))))
 
@@ -361,14 +361,14 @@
 (setq haskell-process-use-ghci t)
 (setq haskell-process-args-ghci '("ghci"))
 
-; Evil Mode
-(evil-mode 1)
-(require 'evil-org)
-(setq evil-want-C-u-scroll t)
-(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-(define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
-(evil-define-key 'normal evil-org-mode-map
-  (kbd "TAB") 'org-cycle)
+;; ;; Evil Mode
+;; (evil-mode 1)
+;; (require 'evil-org)
+;; (setq evil-want-C-u-scroll t)
+;; (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+;; (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+;; (evil-define-key 'normal evil-org-mode-map
+;;   (kbd "TAB") 'org-cycle)
 
 ;; Windmove
 (windmove-default-keybindings 'ctrl)
