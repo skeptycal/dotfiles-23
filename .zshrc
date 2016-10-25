@@ -49,3 +49,6 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=23'
 
 # bind key
 bindkey '^ ' autosuggest-accept
+
+# COLOR
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

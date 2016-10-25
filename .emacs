@@ -24,11 +24,13 @@
  '(custom-safe-themes
    (quote
     ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
+ '(focus-dimness 1)
+ '(global-linum-mode t)
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
  '(helm-autoresize-max-height 15)
- '(helm-autoresize-min-height 5)
+ '(helm-autoresize-min-height 1)
  '(helm-autoresize-mode t)
  '(helm-ff-file-name-history-use-recentf t)
  '(helm-ff-search-library-in-sexp t)
@@ -39,12 +41,13 @@
  '(helm-split-window-in-side-p t)
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
+ '(linum-format "%d ")
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("~/Org/todo.org")))
- '(org-support-shift-select t)
+ '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (slime evil-surround god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -60,6 +63,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ac-candidate-face ((t (:inherit popup-face :background "black" :foreground "brightyellow"))))
+ '(ac-candidate-mouse-face ((t (:background "black" :foreground "cyan"))))
+ '(ac-completion-face ((t (:foreground "brightgreen"))))
+ '(ac-selection-face ((t (:inherit popup-menu-selection-face :background "black" :foreground "green"))))
  '(border ((t nil)))
  '(cursor ((t (:background "#93a1a1" :height 1.0))))
  '(font-lock-variable-name-face ((t (:foreground "brightmagenta"))))
@@ -92,7 +99,7 @@
 (transient-mark-mode t)     ;; show region, drop mark
 (global-font-lock-mode t)   ;; for all buffers
 (global-visual-line-mode t) ;; word-wrap
-(setq shift-select-mode t) ;; Shift select
+(setq shift-select-mode nil) ;; Shift select
 (show-paren-mode t)         ;; show matching parentheses
 (setq initial-scratch-message "")
 (setq inhibit-startup-screen t)
@@ -228,14 +235,6 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 
-;; Region-Select keymapping
-(global-unset-key (vector (list 'shift 'left)))
-(global-unset-key (vector (list 'shift 'right)))
-(define-key input-decode-map "\e[1;2D" [S-left])
-(define-key input-decode-map "\e[1;2C" [S-right])
-(define-key input-decode-map "\e[1;2B" [S-down])
-(define-key input-decode-map "\e[1:2A" [S-up])
-
 ;; Auto close brackets
 (electric-pair-mode 1)
 
@@ -271,7 +270,6 @@
 
 ;; A lil' performance
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
-
 
 ;; Hook flyspell into org-mode
 (add-hook 'org-mode-hook 'turn-on-flyspell)
@@ -333,14 +331,7 @@
 (global-set-key (kbd "<f8>") 'xah-run-current-file)
 (global-set-key (kbd "C-c C-s") 'xah-run-current-file)
 
-;; sudo dired
-(require 'tramp)
-(defun sudired ()
-  (interactive)
-  (dired "/sudo::/"))
-
 ;; Haskell
-
 (defun haskell-load-and-run-stationary ()
   "Loads and runs the current Haskell file."
   (interactive)
@@ -350,7 +341,6 @@
     (end-of-buffer)
     (pop-to-buffer start-buffer)))
 
-(add-hook 'haskell-mode-hook 'auto-complete-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (eval-after-load 'haskell-mode '(progn
@@ -361,23 +351,21 @@
 (setq haskell-process-use-ghci t)
 (setq haskell-process-args-ghci '("ghci"))
 
-;; ;; Evil Mode
-;; (evil-mode 1)
-;; (require 'evil-org)
-;; (setq evil-want-C-u-scroll t)
-;; (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-;; (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
-;; (evil-define-key 'normal evil-org-mode-map
-;;   (kbd "TAB") 'org-cycle)
-
 ;; Windmove
-(windmove-default-keybindings 'ctrl)
-(global-set-key (kbd "M-TAB") 'other-window)
+(windmove-default-keybindings 'shift)
 
 ;; Org mode
 (setq org-log-done 'time)
 (global-unset-key "\C-ca")
 (global-set-key "\C-ca" 'org-agenda)
 
-;; Schem
+;; Scheme
 (setq scheme-program-name "chibi-scheme")
+ 
+;; Evil Mode
+(evil-mode 1)
+(require 'evil-org)
+(define-key evil-normal-state-map "f" 'avy-goto-char-2)
+(setq evil-want-C-u-scroll t)
+(evil-define-key 'normal evil-org-mode-map
+  (kbd "TAB") 'org-cycle)
