@@ -366,6 +366,7 @@
 (evil-mode 1)
 (require 'evil-org)
 (define-key evil-normal-state-map "f" 'avy-goto-char-2)
+(define-key evil-motion-state-map "f" 'avy-goto-char-2)
 (setq evil-want-C-u-scroll t)
 (evil-define-key 'normal evil-org-mode-map
   (kbd "TAB") 'org-cycle)
