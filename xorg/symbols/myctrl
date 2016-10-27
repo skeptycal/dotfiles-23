@@ -12,6 +12,9 @@ xkb_symbols "rwin" {
 
     key <LWIN> { [ Alt_L, Alt_L ] };
     modifier_map Mod1 { <LWIN>, <RALT>};
+
+    key <LALT> { [ Super_L, Super_L ] };
+    modifier_map Mod4 { <LALT> };
 };
 
 // RALT -> RCTRL; RWIN -> RALT
