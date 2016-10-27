@@ -1,0 +1,22 @@
+// To make available to 00-keyboard.conf:
+// add to /usr/share/X11/xkb/rules/evdev:
+// myctrl:ralt_rwin = +myctrl(ralt_rwin)
+// add to /usr/share/X11/xkb/evdev.lst
+// myctrl:ralt_rwin
+
+// RWIN -> RCTRL
+partial modifier_keys
+xkb_symbols "rwin" {
+    key <RWIN> { [ Control_R, Control_R ] };
+    modifier_map Control { <RWIN> };
+};
+
+// RALT -> RCTRL; RWIN -> RALT
+partial modifier_keys
+xkb_symbols "ralt_rwin" {
+    key <RALT> { [ Control_R, Control_R ] };
+    modifier_map Control { <RALT> };
+    
+    key <RWIN> { [ Alt_R, Alt_R ] };
+    modifier_map Mod1 { <LALT>, <RWIN> };
+};

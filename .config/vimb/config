@@ -1,7 +1,7 @@
 set webinspector=true
 set download-path=/home/coleman/Downloads
 set editor-command="emacs"
-set home-page=http://gariety.xxx/
+set home-page=http://google.com/
 set fontsize=13
 set monofontsize=13
 shortcut-add gl=https://www.google.com/search?q=$0
