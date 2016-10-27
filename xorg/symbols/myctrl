@@ -9,6 +9,9 @@ partial modifier_keys
 xkb_symbols "rwin" {
     key <RWIN> { [ Control_R, Control_R ] };
     modifier_map Control { <RWIN> };
+
+    key <LWIN> { [ Alt_L, Alt_L ] };
+    modifier_map Mod1 { <LWIN>, <RALT>};
 };
 
 // RALT -> RCTRL; RWIN -> RALT
