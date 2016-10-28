@@ -26,9 +26,6 @@
     ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
  '(focus-dimness 1)
  '(global-linum-mode t)
- '(haskell-process-auto-import-loaded-modules t)
- '(haskell-process-log t)
- '(haskell-process-suggest-remove-import-lines t)
  '(helm-autoresize-max-height 15)
  '(helm-autoresize-min-height 1)
  '(helm-autoresize-mode t)
@@ -344,12 +341,15 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (eval-after-load 'haskell-mode '(progn
-                                  (define-key haskell-mode-map (kbd "C-c C-e") 'haskell-load-and-run-stationary)))
-
-(setq haskell-process-type 'ghci)
-(setq haskell-process-path-ghci "stack")
-(setq haskell-process-use-ghci t)
-(setq haskell-process-args-ghci '("ghci"))
+                                  (define-key haskell-mode-map (kbd "C-c C-e") 'haskell-load-and-run-stationary)
+                                  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+                                  (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+                                  (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
+                                  (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
+                                  (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+                                  (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+                                  (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
+                                  (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
 
 ;; Windmove
 (windmove-default-keybindings 'shift)
@@ -365,8 +365,8 @@
 ;; Evil Mode
 (evil-mode 1)
 (require 'evil-org)
-(define-key evil-normal-state-map "f" 'avy-goto-char-2)
-(define-key evil-motion-state-map "f" 'avy-goto-char-2)
+(define-key evil-normal-state-map "f" 'avy-goto-char)
+(define-key evil-motion-state-map "f" 'avy-goto-char)
 (setq evil-want-C-u-scroll t)
 (evil-define-key 'normal evil-org-mode-map
   (kbd "TAB") 'org-cycle)
