@@ -27,6 +27,8 @@ set imap_keepalive = 900
 set sort = threads
 set editor = "emacsclient -nw"
 
-# shortcuts
+# passwords
+source "gpg -d ~/.mutt/passwords.gpg |"
 
+# shortcuts
 bind index G imap-fetch-mail
