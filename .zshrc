@@ -50,5 +50,9 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=23'
 # bind key
 bindkey '^ ' autosuggest-accept
 
+# completion stuff
+autoload -U compinit && compinit
+zstyle ':completion:*' menu select
+
 # COLOR
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

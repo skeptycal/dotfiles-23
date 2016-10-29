@@ -1,0 +1,32 @@
+source $HOME/.mutt/mutt-colors-solarized-dark-16.muttrc
+
+# nudity
+
+ignore *
+unignore from date subject to cc
+
+# garietyc@reed.edu
+set ssl_starttls=yes
+set ssl_force_tls=yes
+set imap_user = garietyc@reed.edu
+set from=garietyc@reed.edu
+set realname="Coleman Gariety"
+set folder = imaps://imap.gmail.com:993/
+set spoolfile = +INBOX
+set postponed="+[Gmail]/Drafts"
+set trash="+[Gmail]/Trash"
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file = "~/.mutt/certificates"
+set smtp_url = "smtp://garietyc@reed.edu@smtp.gmail.com:587/"
+
+# Etc
+set mail_check = 30
+set move = no
+set imap_keepalive = 900
+set sort = threads
+set editor = "emacsclient -nw"
+
+# shortcuts
+
+bind index G imap-fetch-mail

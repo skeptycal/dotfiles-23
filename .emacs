@@ -26,6 +26,7 @@
     ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
  '(focus-dimness 1)
  '(global-linum-mode t)
+ '(haskell-indentation-cycle-warn nil)
  '(helm-autoresize-max-height 15)
  '(helm-autoresize-min-height 1)
  '(helm-autoresize-mode t)
@@ -44,7 +45,7 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -249,20 +250,20 @@
       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key (kbd "C-c h l") 'helm-locate)
-(global-set-key (kbd "C-c h t") 'helm-top)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x b") 'helm-mini)
 
 ;; Helm + Projectile
 (helm-projectile-on)
 (projectile-global-mode)
 (global-set-key (kbd "C-x C-d") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x C-g") 'helm-projectile-ag)
-
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-k") 'helm-occur)
+(global-set-key (kbd "C-x C-l") 'helm-locate)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x C-b") 'helm-mini)
+(global-set-key (kbd "C-x b") 'helm-mini)
 ;; Auto complete
+
 (global-auto-complete-mode t)
 
 ;; A lil' performance
@@ -361,10 +362,12 @@
 
 ;; Scheme
 (setq scheme-program-name "chibi-scheme")
- 
+
 ;; Evil Mode
 (evil-mode 1)
 (require 'evil-org)
+(global-evil-surround-mode)
+(setq avy-all-windows nil)
 (define-key evil-normal-state-map "f" 'avy-goto-char)
 (define-key evil-motion-state-map "f" 'avy-goto-char)
 (setq evil-want-C-u-scroll t)

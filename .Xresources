@@ -39,10 +39,11 @@ URxvt.scrollBar: false
 URxvt.letterSpace: -2
 URxvt.font:      xft:Consolas:style=Semibold:size=10:antialias=true:hinting=slight
 URxvt.boldFont: xft:Consolas:style=bold:size=10:antialias=true:hinting=slight
-URxvt.perl-ext-common: default,resize-font,font-size
+URxvt.perl-ext: default,clipboard,matcher
+URxvt.url-launcher: vimb
+URxvt.matcher.button: 1
 URxvt.geometry: 120x36
 URxvt.iso14755: False
-URxvt.perl-ext-common: default,clipboard
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.cursorBlink: 1
 
