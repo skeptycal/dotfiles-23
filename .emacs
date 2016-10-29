@@ -27,6 +27,7 @@
  '(focus-dimness 1)
  '(global-linum-mode t)
  '(haskell-indentation-cycle-warn nil)
+ '(haskell-interactive-mode-eval-mode nil)
  '(helm-autoresize-max-height 15)
  '(helm-autoresize-min-height 1)
  '(helm-autoresize-mode t)
@@ -330,26 +331,21 @@
 (global-set-key (kbd "C-c C-s") 'xah-run-current-file)
 
 ;; Haskell
-(defun haskell-load-and-run-stationary ()
-  "Loads and runs the current Haskell file."
+(defun inferior-haskell-load-and-run-stationary ()
   (interactive)
   (let ((start-buffer (current-buffer)))
     (inferior-haskell-load-and-run inferior-haskell-run-command)
-    (sleep-for 0 100)
-    (end-of-buffer)
     (pop-to-buffer start-buffer)))
+
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (eval-after-load 'haskell-mode '(progn
-                                  (define-key haskell-mode-map (kbd "C-c C-e") 'haskell-load-and-run-stationary)
-                                  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-                                  (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-                                  (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
-                                  (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
-                                  (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-                                  (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
-                                  (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
+                                  (define-key haskell-mode-map (kbd "C-c C-e") 'inferior-haskell-load-and-run-stationary)
+                                  (define-key haskell-mode-map (kbd "C-c C-l") 'inferior-haskell-load-file)
+                                  (define-key haskell-mode-map (kbd "C-c C-t") 'inferior-haskell-type)
+                                  (define-key haskell-mode-map (kbd "C-c C-i") 'inferior-haskell-info)
+                                  (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-process-clear)
                                   (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
 
 ;; Windmove
@@ -373,3 +369,6 @@
 (setq evil-want-C-u-scroll t)
 (evil-define-key 'normal evil-org-mode-map
   (kbd "TAB") 'org-cycle)
+
+;; Linum Autocomplete fix
+(ac-linum-workaround)
