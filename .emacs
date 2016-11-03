@@ -45,7 +45,7 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile helm-ag golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -370,6 +370,19 @@
 (setq evil-want-C-u-scroll t)
 (evil-define-key 'normal evil-org-mode-map
   (kbd "TAB") 'org-cycle)
+
+;; Controvertsial bindings for eVIl
+(define-key evil-normal-state-map "\C-a" 'evil-beginning-of-line)
+(define-key evil-insert-state-map "\C-a" 'beginning-of-line)
+(define-key evil-visual-state-map "\C-a" 'evil-beginning-of-line)
+(define-key evil-motion-state-map "\C-a" 'evil-beginning-of-line)
+(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+(define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-normal-state-map "\C-k" 'kill-line)
+(define-key evil-insert-state-map "\C-k" 'kill-line)
+(define-key evil-visual-state-map "\C-k" 'kill-line)
 
 ;; Linum Autocomplete fix
 (ac-linum-workaround)

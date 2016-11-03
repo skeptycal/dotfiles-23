@@ -1,5 +1,8 @@
 source $HOME/.mutt/mutt-colors-solarized-dark-16.muttrc
 
+# offlineimap
+set mbox_type = Maildir
+
 # nudity
 
 ignore *
@@ -11,7 +14,7 @@ set ssl_force_tls=yes
 set imap_user = garietyc@reed.edu
 set from=garietyc@reed.edu
 set realname="Coleman Gariety"
-set folder = imaps://imap.gmail.com:993/
+set folder = "imaps://imap.gmail.com:993/"
 set spoolfile = +INBOX
 set postponed="+[Gmail]/Drafts"
 set trash="+[Gmail]/Trash"
@@ -22,13 +25,46 @@ set smtp_url = "smtp://garietyc@reed.edu@smtp.gmail.com:587/"
 
 # Etc
 set mail_check = 30
+set imap_keepalive = 300
+unset imap_passive
 set move = no
-set imap_keepalive = 900
 set sort = threads
 set editor = "emacsclient -nw"
+set quit
+set delete
+unset mark_old
+set imap_check_subscribed
+
+# sorting
+set sort = threads
+set sort_aux = reverse-last-date-received
+set sort_re
+
+# look and feel
+set pager_index_lines = 8
+set pager_context     = 5
+set pager_stop
+set menu_scroll
+set smart_wrap
+set tilde
+unset markers
+
+# composing 
+set fcc_attach
+unset mime_forward
+set forward_format = "Fwd: %s"
+set include
+set forward_quote
+
+# key bindings
+bind index G imap-fetch-mail
+bind index,pager \Cb previous-page
+bind index,pager \Cf next-page
+bind index,pager / search
+bind pager j next-line
+bind pager k previous-line
+bind pager g top
+bind pager G bottom
 
 # passwords
 source "gpg -d ~/.mutt/passwords.gpg |"
-
-# shortcuts
-bind index G imap-fetch-mail

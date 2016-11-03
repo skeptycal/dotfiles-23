@@ -1,6 +1,7 @@
 ! X settings ----------------------------------------------
 
-Xcursor.size: 40
+Xcursor.theme: DMZ (Black)
+Xcursor.size: 32
 
 XClock*foreground: #fbfbfb
 XClock*background: #000018

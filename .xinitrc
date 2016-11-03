@@ -2,6 +2,8 @@
 xrdb ~/.Xresources
 # background
 setroot -z ~/Pictures/paintings/fish.jpg
+# cursor
+xsetroot -cursor_name left_ptr
 # cursor acceleration
 xset m 3/2 0
 # internal keyboard

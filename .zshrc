@@ -30,7 +30,7 @@ export EDITOR='emacsclient -nw -c a ""'
 export MAIL=/var/spool/mail/coleman
 export BROWSER=vimb
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin:$HOME/bin" # Add RVM to PATH for scripting
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
