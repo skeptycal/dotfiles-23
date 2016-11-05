@@ -349,10 +349,49 @@
                                   (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-process-clear)
                                   (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
 
-;; Windmove
-(windmove-default-keybindings 'shift)
+;;;;;;;;;;;;;;
+;; Windmove ;;
+;;;;;;;;;;;;;;
 
-;; Org mode
+;; Cycling
+(defun windmove-up-cycle()
+  (interactive)
+  (condition-case nil (windmove-up)
+    (error (condition-case nil (windmove-down)
+         (error (condition-case nil (windmove-right) (error (condition-case nil (windmove-left) (error (windmove-up))))))))))
+
+(defun windmove-down-cycle()
+  (interactive)
+  (condition-case nil (windmove-down)
+    (error (condition-case nil (windmove-up)
+         (error (condition-case nil (windmove-left) (error (condition-case nil (windmove-right) (error (windmove-down))))))))))
+
+(defun windmove-right-cycle()
+  (interactive)
+  (condition-case nil (windmove-right)
+    (error (condition-case nil (windmove-left)
+         (error (condition-case nil (windmove-up) (error (condition-case nil (windmove-down) (error (windmove-right))))))))))
+
+(defun windmove-left-cycle()
+  (interactive)
+  (condition-case nil (windmove-left)
+    (error (condition-case nil (windmove-right)
+         (error (condition-case nil (windmove-down) (error (condition-case nil (windmove-up) (error (windmove-left))))))))))
+
+;; keys
+(define-key global-map (kbd "M-k") 'windmove-up-cycle)
+(define-key global-map (kbd "M-j") 'windmove-down-cycle)
+(define-key global-map (kbd "M-h") 'windmove-left-cycle)
+(define-key global-map (kbd "M-l") 'windmove-right-cycle)
+(define-key global-map (kbd "M-K") 'evil-window-split)
+(define-key global-map (kbd "M-J") 'evil-window-split)
+(define-key global-map (kbd "M-H") 'evil-window-vsplit)
+(define-key global-map (kbd "M-L") 'evil-window-vsplit)
+
+;;;;;;;;;;;;;;
+;; Org mode ;;
+;;;;;;;;;;;;;;
+
 (setq org-log-done 'time)
 (global-unset-key "\C-ca")
 (global-set-key "\C-ca" 'org-agenda)
@@ -360,7 +399,10 @@
 ;; Scheme
 (setq scheme-program-name "chibi-scheme")
 
-;; Evil Mode
+;;;;;;;;;;;;;;;
+;; Evil Mode ;;
+;;;;;;;;;;;;;;;
+
 (evil-mode 1)
 (require 'evil-org)
 (global-evil-surround-mode)
@@ -383,6 +425,7 @@
 (define-key evil-normal-state-map "\C-k" 'kill-line)
 (define-key evil-insert-state-map "\C-k" 'kill-line)
 (define-key evil-visual-state-map "\C-k" 'kill-line)
+(define-key evil-motion-state-map "\C-k" 'kill-line)
 
 ;; Linum Autocomplete fix
 (ac-linum-workaround)
