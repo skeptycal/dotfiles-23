@@ -1,4 +1,4 @@
-set hintkeys = asdfghjkl
+set hintkeys = jklasdfgh
 set webinspector=true
 set download-path=/home/coleman/Downloads
 set editor-command="emacs"
