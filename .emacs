@@ -407,8 +407,8 @@
 (require 'evil-org)
 (global-evil-surround-mode)
 (setq avy-all-windows nil)
-(define-key evil-normal-state-map "f" 'avy-goto-char)
-(define-key evil-motion-state-map "f" 'avy-goto-char)
+(define-key evil-normal-state-map "f" 'avy-goto-char-timer)
+(define-key evil-motion-state-map "f" 'avy-goto-char-timer)
 (setq evil-want-C-u-scroll t)
 (evil-define-key 'normal evil-org-mode-map
   (kbd "TAB") 'org-cycle)
