@@ -115,6 +115,7 @@
 (tool-bar-mode 0)
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
+(desktop-save-mode 1)
 
 ;; Copy/paste
 ;;
