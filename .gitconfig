@@ -6,4 +6,4 @@
 [pull]
 	rebase = true
 [core]
-	editor = "emacsclient -nw -c -a ''"
+	editor = "emacsclient"

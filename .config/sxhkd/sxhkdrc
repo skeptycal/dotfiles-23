@@ -40,7 +40,7 @@ alt + Return
 	urxvt
 
 super + Return
-  dmenu_run -b -nb '#002b36' -nf '#839496'  -sf black -sb darkgrey
+  rofi -rnow -show run -font "consolas 20"
 
 ctrl + alt + super + Escape
   killall karmen

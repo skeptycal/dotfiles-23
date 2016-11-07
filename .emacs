@@ -15,6 +15,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-start 2)
+ '(ansi-color-names-vector
+   ["black" "red" "green" "yellow" "PaleBlue" "magenta" "cyan" "white"])
  '(blink-cursor-delay 10000000)
  '(blink-cursor-interval 1000000000000000)
  '(blink-cursor-mode nil)
@@ -27,10 +29,10 @@
  '(focus-dimness 1)
  '(haskell-indentation-cycle-warn nil)
  '(haskell-interactive-mode-eval-mode nil)
+ '(helm-ag-base-command "ag --vimgrep -U")
  '(helm-autoresize-max-height 15)
  '(helm-autoresize-min-height 1)
  '(helm-autoresize-mode t)
- '(helm-ag-base-command "ag --vimgrep -U")
  '(helm-ff-file-name-history-use-recentf t)
  '(helm-ff-search-library-in-sexp t)
  '(helm-locate-command "locate %s %s")
@@ -46,11 +48,13 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor evil-org helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auto-complete auctex ace-flyspell)))
+    (eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
  '(showkey-log-mode nil)
+ '(solarized-bold t)
+ '(solarized-termcolors 16)
  '(vc-follow-symlinks t)
  '(web-mode-attr-indent-offset 2)
  '(web-mode-attr-value-indent-offset 2)
@@ -83,6 +87,7 @@
  '(mode-line ((t (:background "black" :foreground "brightcyan" :inverse-video t :box nil))))
  '(org-todo ((t (:background "red" :distant-foreground "red" :foreground "brightblack" :weight bold))))
  '(region ((t (:inverse-video t))))
+ '(term-color-white ((t (:background "white" :foreground "white"))))
  '(vertical-border ((t (:background "brightblack" :foreground "brightyellow"))))
  '(web-mode-function-call-face ((t (:inherit font-lock-function-name-face))))
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "yellow"))))
@@ -94,7 +99,10 @@
 
 ;;; My Code:
 
-;; Nudity
+;;;;;;;;;;;;
+;; Nudity ;;
+;;;;;;;;;;;;
+
 (transient-mark-mode t)     ;; show region, drop mark
 (global-font-lock-mode t)   ;; for all buffers
 (global-visual-line-mode t) ;; word-wrap
@@ -163,7 +171,10 @@
 
 (add-hook 'find-file-hook 'linum-mode)
 
-;; Auto-modes
+;;;;;;;;;;;;;;;;
+;; Auto-modes ;;
+;;;;;;;;;;;;;;;;
+
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . sass-mode))
@@ -239,10 +250,15 @@
 ;; Auto close brackets
 (electric-pair-mode 1)
 
-;; Solarized
+;;;;;;;;;;;;;;;
+;; Solarized ;;
+;;;;;;;;;;;;;;;
 (load-theme 'solarized)
 
-;; Helm
+;;;;;;;;;;
+;; Helm ;;
+;;;;;;;;;;
+
 (require 'helm-config)
 (helm-mode 1)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
@@ -267,8 +283,6 @@
 (global-set-key (kbd "C-x b") 'helm-mini)
 ;; Auto complete
 
-(global-auto-complete-mode t)
-
 ;; A lil' performance
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
@@ -276,7 +290,9 @@
 (add-hook 'org-mode-hook 'turn-on-flyspell)
 (add-hook 'org-mode-hook 'wc-goal-mode)
 
-;; Xah Run Current File
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Xah Run Current File ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun xah-run-current-file ()
   (interactive)
   (let (
@@ -330,9 +346,11 @@
           (message "No recognized program file suffix for this file."))))))
 
 (global-set-key (kbd "<f8>") 'xah-run-current-file)
-(global-set-key (kbd "C-c C-s") 'xah-run-current-file)
 
-;; Haskell
+;;;;;;;;;;;;;
+;; Haskell ;;
+;;;;;;;;;;;;;
+
 (defun inferior-haskell-load-and-run-stationary ()
   (interactive)
   (let ((start-buffer (current-buffer)))
@@ -393,9 +411,13 @@
 ;; Org mode ;;
 ;;;;;;;;;;;;;;
 
+(require 'org)
 (setq org-log-done 'time)
 (global-unset-key "\C-ca")
 (global-set-key "\C-ca" 'org-agenda)
+(eval-after-load 'org
+  (progn
+    (define-key org-mode-map (kbd "M-h") nil)))
 
 ;; Scheme
 (setq scheme-program-name "chibi-scheme")
@@ -404,15 +426,13 @@
 ;; Evil Mode ;;
 ;;;;;;;;;;;;;;;
 
+(require 'evil)
 (evil-mode 1)
-(require 'evil-org)
 (global-evil-surround-mode)
 (setq avy-all-windows nil)
 (define-key evil-normal-state-map "f" 'avy-goto-char-timer)
 (define-key evil-motion-state-map "f" 'avy-goto-char-timer)
 (setq evil-want-C-u-scroll t)
-(evil-define-key 'normal evil-org-mode-map
-  (kbd "TAB") 'org-cycle)
 
 ;; Controvertsial bindings for eVIl
 (define-key evil-normal-state-map "\C-a" 'evil-beginning-of-line)
@@ -428,5 +448,96 @@
 (define-key evil-visual-state-map "\C-k" 'kill-line)
 (define-key evil-motion-state-map "\C-k" 'kill-line)
 
-;; Linum Autocomplete fix
-(ac-linum-workaround)
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto Complete Mode ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'auto-complete)
+(global-auto-complete-mode 1)
+
+(define-key ac-completing-map "\C-m" nil)
+(setq ac-use-menu-map t)
+(define-key ac-menu-map "\C-m" 'ac-complete)
+
+;; Erase buffer
+(put 'erase-buffer 'disabled nil)
+(global-set-key (kbd "C-x C-^") 'erase-buffer)
+
+;; What face
+(defun what-face (pos)
+  (interactive "d")
+  (let ((face (or (get-char-property (point) 'read-face-name)
+                  (get-char-property (point) 'face))))
+    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+
+;; Buffer menu
+(global-set-key (kbd "C-c C-b") 'buffer-menu)
+
+;;;;;;;;;;;;
+;; eshell ;;
+;;;;;;;;;;;;
+
+(global-set-key (kbd "C-c C-a") 'eshell)
+(require 'cl)
+
+(eval-after-load 'eshell
+  '(require 'eshell-z nil t))
+
+(with-eval-after-load "esh-opt"
+  (autoload 'epe-theme-lambda "eshell-prompt-extras")
+  (setq eshell-highlight-prompt nil
+        eshell-prompt-function 'epe-theme-lambda))
+
+;; eshell autocomplete
+(defun ac-pcomplete ()
+  ;; eshell uses `insert-and-inherit' to insert a \t if no completion
+  ;; can be found, but this must not happen as auto-complete source
+  (flet ((insert-and-inherit (&rest args)))
+    ;; this code is stolen from `pcomplete' in pcomplete.el
+    (let* (tramp-mode ;; do not automatically complete remote stuff
+           (pcomplete-stub)
+           (pcomplete-show-list t) ;; inhibit patterns like * being deleted
+           pcomplete-seen pcomplete-norm-func
+           pcomplete-args pcomplete-last pcomplete-index
+           (pcomplete-autolist pcomplete-autolist)
+           (pcomplete-suffix-list pcomplete-suffix-list)
+           (candidates (pcomplete-completions))
+           (beg (pcomplete-begin))
+           ;; note, buffer text and completion argument may be
+           ;; different because the buffer text may bet transformed
+           ;; before being completed (e.g. variables like $HOME may be
+           ;; expanded)
+           (buftext (buffer-substring beg (point)))
+           (arg (nth pcomplete-index pcomplete-args)))
+      ;; we auto-complete only if the stub is non-empty and matches
+      ;; the end of the buffer text
+      (when (and (not (zerop (length pcomplete-stub)))
+                 (or (string= pcomplete-stub ; Emacs 23
+                              (substring buftext
+                                         (max 0
+                                              (- (length buftext)
+                                                 (length pcomplete-stub)))))
+                     (string= pcomplete-stub ; Emacs 24
+                              (substring arg
+                                         (max 0
+                                              (- (length arg)
+                                                 (length pcomplete-stub)))))))
+        ;; Collect all possible completions for the stub. Note that
+        ;; `candidates` may be a function, that's why we use
+        ;; `all-completions`.
+        (let* ((cnds (all-completions pcomplete-stub candidates))
+               (bnds (completion-boundaries pcomplete-stub
+                                            candidates
+                                            nil
+                                            ""))
+               (skip (- (length pcomplete-stub) (car bnds))))
+          ;; We replace the stub at the beginning of each candidate by
+          ;; the real buffer content.
+          (mapcar #'(lambda (cand) (concat buftext (substring cand skip)))
+                  cnds))))))
+
+(defvar ac-source-pcomplete
+  '((candidates . ac-pcomplete)))
+
+(add-hook 'eshell-mode-hook #'(lambda () (setq ac-sources '(ac-source-pcomplete))))
+(add-to-list 'ac-modes 'eshell-mode)

@@ -21,6 +21,6 @@ twmnd &
 # keys
 sxhkd &
 # terminal
-urxvt &
+ec &
 # windows
 exec karmen -font "Source Sans Pro"
