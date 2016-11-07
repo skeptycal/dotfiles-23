@@ -30,9 +30,6 @@
  '(haskell-indentation-cycle-warn nil)
  '(haskell-interactive-mode-eval-mode nil)
  '(helm-ag-base-command "ag --vimgrep -U")
- '(helm-autoresize-max-height 15)
- '(helm-autoresize-min-height 1)
- '(helm-autoresize-mode t)
  '(helm-ff-file-name-history-use-recentf t)
  '(helm-ff-search-library-in-sexp t)
  '(helm-locate-command "locate %s %s")
@@ -48,7 +45,7 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auctex ace-flyspell)))
+    (buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -116,6 +113,7 @@
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 (desktop-save-mode 1)
+(global-set-key (kbd "C-q") 'delete-window)
 
 ;; Copy/paste
 ;;
@@ -464,13 +462,6 @@
 (put 'erase-buffer 'disabled nil)
 (global-set-key (kbd "C-x C-^") 'erase-buffer)
 
-;; What face
-(defun what-face (pos)
-  (interactive "d")
-  (let ((face (or (get-char-property (point) 'read-face-name)
-                  (get-char-property (point) 'face))))
-    (if face (message "Face: %s" face) (message "No face at %d" pos))))
-
 ;; Buffer menu
 (global-set-key (kbd "C-c C-b") 'buffer-menu)
 
@@ -478,7 +469,26 @@
 ;; eshell ;;
 ;;;;;;;;;;;;
 
-(global-set-key (kbd "C-c C-a") 'eshell)
+(defun eshell-here ()
+  "Opens up a new shell in the directory associated with the
+current buffer's file. The eshell is renamed to match that
+directory to make multiple eshell windows easier."
+  (interactive)
+  (let* ((parent (if (buffer-file-name)
+                     (file-name-directory (buffer-file-name))
+                   default-directory))
+         (height (/ (window-total-height) 3))
+         (name   (car (last (split-string parent "/" t)))))
+    (split-window-vertically (- height))
+    (other-window 1)
+    (eshell "new")
+    (rename-buffer (concat "*eshell: " name "*"))
+
+    (insert (concat "ls"))
+    (eshell-send-input)))
+
+(global-set-key (kbd "C-c C-a") 'eshell-here)
+
 (require 'cl)
 
 (eval-after-load 'eshell
@@ -542,3 +552,6 @@
 
 (add-hook 'eshell-mode-hook #'(lambda () (setq ac-sources '(ac-source-pcomplete))))
 (add-to-list 'ac-modes 'eshell-mode)
+
+;; ERC
+(setq erc-nick "clmg")
