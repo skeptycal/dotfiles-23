@@ -12,8 +12,8 @@ xset m 3/2 0
 # xmodmap ~/.Xmodmap
 # shadows
 compton -o 0.3 -r 10 --no-fading-openclose &
-# album art
-conky &
+# # album art
+# conky &
 # flux
 redshift -r &
 # notifications

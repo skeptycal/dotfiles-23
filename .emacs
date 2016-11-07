@@ -364,8 +364,7 @@
                                   (define-key haskell-mode-map (kbd "C-c C-l") 'inferior-haskell-load-file)
                                   (define-key haskell-mode-map (kbd "C-c C-t") 'inferior-haskell-type)
                                   (define-key haskell-mode-map (kbd "C-c C-i") 'inferior-haskell-info)
-                                  (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-process-clear)
-                                  (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
+                                  (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-process-clear)))
 
 ;;;;;;;;;;;;;;
 ;; Windmove ;;
