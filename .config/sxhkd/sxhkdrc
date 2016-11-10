@@ -24,10 +24,10 @@ XF86AudioNext
     cmus-remote -n
 
 XF86MonBrightnessUp
-    xbacklight -inc 20%
+    xbacklight -inc 10%
 
 XF86MonBrightnessDown
-    xbacklight -dec 20%
+    xbacklight -dec 10%
 
 XF86KbdBrightnessDown
     /usr/local/bin/kb-light.py -
@@ -35,11 +35,10 @@ XF86KbdBrightnessDown
 XF86KbdBrightnessUp
     /usr/local/bin/kb-light.py +
     
-
-alt + Return
+super + Return
 	urxvt
 
-super + Return
+alt + Return
   rofi -rnow -show run -font "consolas 20"
 
 ctrl + alt + super + Escape

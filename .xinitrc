@@ -1,7 +1,9 @@
+export PATH="$PATH:$HOME/bin"
+
 # Solarized colors & font settings
 xrdb ~/.Xresources
 # background
-setroot -z ~/Pictures/paintings/fish.jpg
+setroot -z ~/Pictures/background.jpg
 # cursor
 xsetroot -cursor_name left_ptr
 # cursor acceleration

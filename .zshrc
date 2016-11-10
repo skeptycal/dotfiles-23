@@ -1,3 +1,6 @@
+export GOPATH=$HOME/Git/go
+export PATH="$PATH:$HOME/.rvm/bin:$GOPATH/bin" # Add RVM to PATH for scripting
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -29,9 +32,6 @@ export ALTERNATE_EDITOR=""
 export EDITOR='emacsclient -nw -c a ""'
 export MAIL=/var/spool/mail/coleman
 export BROWSER=vimb
-
-export GOPATH=$HOME/Git/go
-export PATH="$PATH:$HOME/.rvm/bin:$HOME/bin:$GOPATH/bin" # Add RVM to PATH for scripting
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 

@@ -25,7 +25,7 @@
  '(cua-rectangle-modifier-key (quote meta))
  '(custom-safe-themes
    (quote
-    ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
  '(focus-dimness 1)
  '(haskell-indentation-cycle-warn nil)
  '(haskell-interactive-mode-eval-mode nil)
@@ -39,13 +39,13 @@
  '(helm-split-window-in-side-p t)
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
- '(linum-format "%d ")
+ '(linum-format "%4d │ ")
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("~/Org/todo.org")))
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auctex ace-flyspell)))
+    (cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils company-web color-theme-solarized auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -56,7 +56,9 @@
  '(web-mode-attr-indent-offset 2)
  '(web-mode-attr-value-indent-offset 2)
  '(web-mode-code-indent-offset 2)
- '(web-mode-markup-indent-offset 2))
+ '(web-mode-markup-indent-offset 2)
+ '(window-divider-default-places (quote right-only))
+ '(window-divider-mode t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -82,6 +84,7 @@
  '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
  '(linum ((t (:background "brightblack" :foreground "brightgreen" :underline nil))))
  '(mode-line ((t (:background "black" :foreground "brightcyan" :inverse-video t :box nil))))
+ '(mode-line-inactive ((t (:background "black" :foreground "brightgreen" :inverse-video t :box nil))))
  '(org-todo ((t (:background "red" :distant-foreground "red" :foreground "brightblack" :weight bold))))
  '(region ((t (:inverse-video t))))
  '(term-color-white ((t (:background "white" :foreground "white"))))
@@ -280,7 +283,6 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-mini)
 (global-set-key (kbd "C-x b") 'helm-mini)
-;; Auto complete
 
 ;; A lil' performance
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
@@ -315,7 +317,7 @@
            ("java" . "javac")
            ("scm" . "chibi-scheme")
            ("hs" . "runghc")
-           ;; ("pov" . "/usr/local/bin/povray +R2 +A0.1 +J1.2 +Am2 +Q9 +H480 +W640")
+           ("rs" . "rust")
            ))
 
         -fname
@@ -345,6 +347,7 @@
           (message "No recognized program file suffix for this file."))))))
 
 (global-set-key (kbd "<f8>") 'xah-run-current-file)
+(global-set-key (kbd "C-c C-e") 'xah-run-current-file)
 
 ;;;;;;;;;;;;;
 ;; Haskell ;;
@@ -415,7 +418,8 @@
 (global-set-key "\C-ca" 'org-agenda)
 (eval-after-load 'org
   (progn
-    (define-key org-mode-map (kbd "M-h") nil)))
+    (define-key org-mode-map (kbd "M-h") nil)
+    (define-key org-mode-map (kbd "TAB") 'org-cycle)))
 
 ;; Scheme
 (setq scheme-program-name "chibi-scheme")
@@ -452,14 +456,14 @@
 
 (require 'auto-complete)
 (global-auto-complete-mode 1)
+(ac-linum-workaround)
 
 (define-key ac-completing-map "\C-m" nil)
 (setq ac-use-menu-map t)
 (define-key ac-menu-map "\C-m" 'ac-complete)
 
-;; Erase buffer
-(put 'erase-buffer 'disabled nil)
-(global-set-key (kbd "C-x C-^") 'erase-buffer)
+;; Never erase buffer
+(put 'erase-buffer 'disabled t)
 
 ;; Buffer menu
 (global-set-key (kbd "C-c C-b") 'buffer-menu)
@@ -486,7 +490,8 @@ directory to make multiple eshell windows easier."
     (insert (concat "ls"))
     (eshell-send-input)))
 
-(global-set-key (kbd "C-c C-a") 'eshell-here)
+(global-set-key (kbd "C-c C-w") 'eshell-here)
+(global-set-key (kbd "C-x C-q") 'kill-buffer-and-window)
 
 (require 'cl)
 
@@ -554,3 +559,9 @@ directory to make multiple eshell windows easier."
 
 ;; ERC
 (setq erc-nick "clmg")
+
+;;;;;;;;;;
+;; Rust ;;
+;;;;;;;;;;
+
+(add-hook 'rust-mode-hook 'cargo-minor-mode)

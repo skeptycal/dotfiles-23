@@ -3,7 +3,7 @@ out_to_console no
 update_interval 1
 double_buffer yes
 own_window yes
-own_window_type override
+# own_window_type override
 alignment top_left
 uppercase no
 minimum_size 300 300
