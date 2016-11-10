@@ -434,6 +434,7 @@
 (setq avy-all-windows nil)
 (define-key evil-normal-state-map "f" 'avy-goto-char-timer)
 (define-key evil-motion-state-map "f" 'avy-goto-char-timer)
+(evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
 (setq evil-want-C-u-scroll t)
 
 ;; Controvertsial bindings for eVIl
