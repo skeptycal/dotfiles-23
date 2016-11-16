@@ -1,13 +1,4 @@
-;; .emacs --- A dotfile by Coleman Gariety
-
-;;; Commentary:
-
-;; My Emacs
-;; fwm...
-;; I only put this part in because
-;; of fucking flycheck anyway.
-
-;;; Custom
+;;; Custom's code:
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -122,8 +113,23 @@
 (setq ring-bell-function 'ignore)
 (desktop-save-mode 1)
 
-;; Copy/paste
-;;
+;;;;;;;;;;;;;;;;;;;;;
+;; Prompt on close ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(defun ask-before-closing ()
+  "Ask whether or not to close, and then close if y was pressed"
+  (interactive)
+  (if (y-or-n-p (format "Are you sure you want to exit Emacs? "))
+      (save-buffers-kill-terminal)
+    (message "Canceled exit")))
+
+(global-set-key (kbd "C-x C-c") 'ask-before-closing)
+
+;;;;;;;;;;;;;;;;
+;; Copy/paste ;;
+;;;;;;;;;;;;;;;;
+
 ;; If emacs is run in a terminal, the clipboard- functions have NO
 ;; effect. Instead, we use of xsel, see
 ;; http://www.vergenet.net/~conrad/software/xsel/ -- "a command-line
