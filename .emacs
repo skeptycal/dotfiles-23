@@ -50,7 +50,7 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
+    (svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(ranger-show-dotfiles nil)
@@ -121,7 +121,6 @@
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 (desktop-save-mode 1)
-(global-set-key (kbd "C-q") 'kill-buffer-and-window)
 
 ;; Copy/paste
 ;;
@@ -376,30 +375,86 @@
 ;; Windmove ;;
 ;;;;;;;;;;;;;;
 
-;; Cycling
+(global-set-key (kbd "C-q") 'delete-window)
+
+;; Windows Cycling
 (defun windmove-up-cycle()
   (interactive)
   (condition-case nil (windmove-up)
     (error (condition-case nil (windmove-down)
-         (error (condition-case nil (windmove-right) (error (condition-case nil (windmove-left) (error (windmove-up))))))))))
+             (error (condition-case nil (windmove-right) (error (condition-case nil (windmove-left) (error (windmove-up))))))))))
 
 (defun windmove-down-cycle()
   (interactive)
   (condition-case nil (windmove-down)
     (error (condition-case nil (windmove-up)
-         (error (condition-case nil (windmove-left) (error (condition-case nil (windmove-right) (error (windmove-down))))))))))
+             (error (condition-case nil (windmove-left) (error (condition-case nil (windmove-right) (error (windmove-down))))))))))
 
 (defun windmove-right-cycle()
   (interactive)
   (condition-case nil (windmove-right)
     (error (condition-case nil (windmove-left)
-         (error (condition-case nil (windmove-up) (error (condition-case nil (windmove-down) (error (windmove-right))))))))))
+             (error (condition-case nil (windmove-up) (error (condition-case nil (windmove-down) (error (windmove-right))))))))))
 
 (defun windmove-left-cycle()
   (interactive)
   (condition-case nil (windmove-left)
     (error (condition-case nil (windmove-right)
-         (error (condition-case nil (windmove-down) (error (condition-case nil (windmove-up) (error (windmove-left))))))))))
+             (error (condition-case nil (windmove-down) (error (condition-case nil (windmove-up) (error (windmove-left))))))))))
+
+;; Buffer swaping
+(defun buffer-up-swap()
+  (interactive)
+  (let ((current-window (selected-window))
+	(current-buffer (buffer-name))
+	(swaped-window nil)
+	(swaped-buffer nil))
+	(progn (windmove-up-cycle)
+	 (setq swaped-window (selected-window))
+	 (setq swaped-buffer (buffer-name))
+	 (if (and (not (string= swaped-buffer current-buffer)))
+	     (progn (set-window-buffer swaped-window current-buffer)
+		    (set-window-buffer current-window swaped-buffer))))))
+
+(defun buffer-down-swap()
+  (interactive)
+  (let ((current-window (selected-window))
+	(current-buffer (buffer-name))
+	(swaped-window nil)
+	(swaped-buffer nil))
+	(progn (windmove-down-cycle)
+	 (setq swaped-window (selected-window))
+	 (setq swaped-buffer (buffer-name))
+	 (if (and (not (string= swaped-buffer current-buffer)))
+	     (progn (set-window-buffer swaped-window current-buffer)
+		    (set-window-buffer current-window swaped-buffer))))))
+
+(defun buffer-right-swap()
+  (interactive)
+  (let ((current-window (selected-window))
+	(current-buffer (buffer-name))
+	(swaped-window nil)
+	(swaped-buffer nil))
+	(progn (windmove-right-cycle)
+	 (setq swaped-window (selected-window))
+	 (setq swaped-buffer (buffer-name))
+	 (if (and (not (string= swaped-buffer current-buffer)))
+	     (progn (set-window-buffer swaped-window current-buffer)
+		    (set-window-buffer current-window swaped-buffer))))))
+
+(defun buffer-left-swap()
+  (interactive)
+  (let ((current-window (selected-window))
+	(current-buffer (buffer-name))
+	(swaped-window nil)
+	(swaped-buffer nil))
+	(progn (windmove-left-cycle)
+	 (setq swaped-window (selected-window))
+	 (setq swaped-buffer (buffer-name))
+	 (if (and (not (string= swaped-buffer current-buffer)))
+	     (progn (set-window-buffer swaped-window current-buffer)
+		    (set-window-buffer current-window swaped-buffer))))))
+
 
 ;; keys
 (define-key global-map (kbd "M-k") 'windmove-up-cycle)
@@ -410,6 +465,11 @@
 (define-key global-map (kbd "M-J") 'evil-window-split)
 (define-key global-map (kbd "M-H") 'evil-window-vsplit)
 (define-key global-map (kbd "M-L") 'evil-window-vsplit)
+(define-key global-map (kbd "C-M-j") 'buffer-down-swap)
+(define-key global-map (kbd "C-M-k") 'buffer-up-swap)
+(define-key global-map (kbd "C-M-h") 'buffer-left-swap)
+(define-key global-map (kbd "C-M-l") 'buffer-right-swap)
+
 
 ;;;;;;;;;;;;;;
 ;; Org mode ;;
@@ -447,6 +507,15 @@
 (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
 (setq evil-want-C-u-scroll t)
 
+;; Make movement keys work like they should
+(define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+(define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+
+;; Make horizontal movement cross lines                                    
+(setq-default evil-cross-lines t)
+
 ;; Controvertsial bindings for eVIl
 (define-key evil-normal-state-map "\C-a" 'evil-beginning-of-line)
 (define-key evil-insert-state-map "\C-a" 'beginning-of-line)
@@ -478,8 +547,6 @@
 
 ;; Buffer menu
 (global-set-key (kbd "C-c C-b") 'buffer-menu)
-
-(add-hook 'eshell-mode-hook 'auto-complete-mode)
 
 ;;;;;;;;;;;;
 ;; eshell ;;
