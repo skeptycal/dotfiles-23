@@ -93,7 +93,7 @@
  '(org-todo ((t (:background "red" :distant-foreground "red" :foreground "brightblack" :weight bold))))
  '(region ((t (:inverse-video t))))
  '(term-color-white ((t (:background "white" :foreground "white"))))
- '(vertical-border ((t (:background "brightblack" :foreground "brightyellow"))))
+ '(vertical-border ((t (:foreground "brightgreen" :inverse-video nil))))
  '(web-mode-function-call-face ((t (:inherit font-lock-function-name-face))))
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "yellow"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "white"))))
@@ -157,12 +157,18 @@
       (setq interprogram-cut-function 'xsel-cut-function)
       (setq interprogram-paste-function 'xsel-paste-function))))
 
+(require 'cl)
+
 ;; Vertical border
 (set-face-inverse-video-p 'vertical-border nil)
 (set-face-background 'vertical-border (face-background 'default))
 (set-display-table-slot standard-display-table
                         'vertical-border
-                        (make-glyph-code ?┃))
+                        ;; (make-glyph-code ?┃))
+                        ;; (make-glyph-code ?▒))
+                        (make-glyph-code ?█))
+
+(setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
 
 ;; Foreign packages
 (when (>= emacs-major-version 24)
@@ -175,7 +181,11 @@
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/") t))
 
-(add-hook 'find-file-hook 'linum-mode)
+;;;;;;;;;;;;;;;;
+;; Linum Mode ;;
+;;;;;;;;;;;;;;;;
+
+;; (add-hook 'find-file-hook 'linum-mode)
 
 ;;;;;;;;;;;;;;;;
 ;; Auto-modes ;;
@@ -196,7 +206,7 @@
 (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
 
 ;; Auto-balance windows
-(add-hook 'window-size-change-functions 'balance-windows)
+;; (add-hook 'window-size-change-functions 'balance-windows)
 
 ;; Pgdn & Pgup work properly
 (setq scroll-error-top-bottom t)
@@ -377,31 +387,6 @@
 
 (global-set-key (kbd "C-q") 'delete-window)
 
-;; Windows Cycling
-(defun windmove-up-cycle()
-  (interactive)
-  (condition-case nil (windmove-up)
-    (error (condition-case nil (windmove-down)
-             (error (condition-case nil (windmove-right) (error (condition-case nil (windmove-left) (error (windmove-up))))))))))
-
-(defun windmove-down-cycle()
-  (interactive)
-  (condition-case nil (windmove-down)
-    (error (condition-case nil (windmove-up)
-             (error (condition-case nil (windmove-left) (error (condition-case nil (windmove-right) (error (windmove-down))))))))))
-
-(defun windmove-right-cycle()
-  (interactive)
-  (condition-case nil (windmove-right)
-    (error (condition-case nil (windmove-left)
-             (error (condition-case nil (windmove-up) (error (condition-case nil (windmove-down) (error (windmove-right))))))))))
-
-(defun windmove-left-cycle()
-  (interactive)
-  (condition-case nil (windmove-left)
-    (error (condition-case nil (windmove-right)
-             (error (condition-case nil (windmove-down) (error (condition-case nil (windmove-up) (error (windmove-left))))))))))
-
 ;; Buffer swaping
 (defun buffer-up-swap()
   (interactive)
@@ -409,7 +394,7 @@
 	(current-buffer (buffer-name))
 	(swaped-window nil)
 	(swaped-buffer nil))
-	(progn (windmove-up-cycle)
+	(progn (windmove-up)
 	 (setq swaped-window (selected-window))
 	 (setq swaped-buffer (buffer-name))
 	 (if (and (not (string= swaped-buffer current-buffer)))
@@ -422,7 +407,7 @@
 	(current-buffer (buffer-name))
 	(swaped-window nil)
 	(swaped-buffer nil))
-	(progn (windmove-down-cycle)
+	(progn (windmove-down)
 	 (setq swaped-window (selected-window))
 	 (setq swaped-buffer (buffer-name))
 	 (if (and (not (string= swaped-buffer current-buffer)))
@@ -435,7 +420,7 @@
 	(current-buffer (buffer-name))
 	(swaped-window nil)
 	(swaped-buffer nil))
-	(progn (windmove-right-cycle)
+	(progn (windmove-right)
 	 (setq swaped-window (selected-window))
 	 (setq swaped-buffer (buffer-name))
 	 (if (and (not (string= swaped-buffer current-buffer)))
@@ -448,7 +433,7 @@
 	(current-buffer (buffer-name))
 	(swaped-window nil)
 	(swaped-buffer nil))
-	(progn (windmove-left-cycle)
+	(progn (windmove-left)
 	 (setq swaped-window (selected-window))
 	 (setq swaped-buffer (buffer-name))
 	 (if (and (not (string= swaped-buffer current-buffer)))
@@ -457,10 +442,10 @@
 
 
 ;; keys
-(define-key global-map (kbd "M-k") 'windmove-up-cycle)
-(define-key global-map (kbd "M-j") 'windmove-down-cycle)
-(define-key global-map (kbd "M-h") 'windmove-left-cycle)
-(define-key global-map (kbd "M-l") 'windmove-right-cycle)
+(define-key global-map (kbd "M-k") 'windmove-up)
+(define-key global-map (kbd "M-j") 'windmove-down)
+(define-key global-map (kbd "M-h") 'windmove-left)
+(define-key global-map (kbd "M-l") 'windmove-right)
 (define-key global-map (kbd "M-K") 'evil-window-split)
 (define-key global-map (kbd "M-J") 'evil-window-split)
 (define-key global-map (kbd "M-H") 'evil-window-vsplit)
