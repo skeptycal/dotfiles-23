@@ -16,7 +16,7 @@ compinit
 
 # X
 if [[ -z $DISPLAY ]]; then
-  startx -- -ardelay 200 -arinterval 40
+  startx -- -ardelay 200 -arinterval 25
 fi
 
 # Ruby

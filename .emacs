@@ -507,6 +507,8 @@
 (setq-default evil-cross-lines nil)
 
 ;; Controvertsial bindings for eVIl
+;; Arguably more like default Unix commands
+;; bol, eol, next, prev, etc.
 (define-key evil-normal-state-map "\C-a" 'evil-beginning-of-line)
 (define-key evil-insert-state-map "\C-a" 'beginning-of-line)
 (define-key evil-visual-state-map "\C-a" 'evil-beginning-of-line)
@@ -519,6 +521,12 @@
 (define-key evil-insert-state-map "\C-k" 'kill-line)
 (define-key evil-visual-state-map "\C-k" 'kill-line)
 (define-key evil-motion-state-map "\C-k" 'kill-line)
+(define-key evil-normal-state-map "\C-n" 'evil-next-line)
+(define-key evil-insert-state-map "\C-n" 'evil-next-line)
+(define-key evil-visual-state-map "\C-n" 'evil-next-line)
+(define-key evil-normal-state-map "\C-p" 'evil-previous-line)
+(define-key evil-insert-state-map "\C-p" 'evil-previous-line)
+(define-key evil-visual-state-map "\C-p" 'evil-previous-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto Complete Mode ;;
