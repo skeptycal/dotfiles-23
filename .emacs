@@ -170,11 +170,10 @@
 (set-face-background 'vertical-border (face-background 'default))
 (set-display-table-slot standard-display-table
                         'vertical-border
-                        ;; (make-glyph-code ?┃))
-                        ;; (make-glyph-code ?▒))
-                        (make-glyph-code ?█))
+                        (make-glyph-code ?┃))
+                        ;; (make-glyph-code ?█))
 
-(setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
+;; (setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
 
 ;; Foreign packages
 (when (>= emacs-major-version 24)
@@ -505,7 +504,7 @@
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 
 ;; Make horizontal movement cross lines                                    
-(setq-default evil-cross-lines t)
+(setq-default evil-cross-lines nil)
 
 ;; Controvertsial bindings for eVIl
 (define-key evil-normal-state-map "\C-a" 'evil-beginning-of-line)
