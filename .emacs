@@ -111,7 +111,7 @@
 (tool-bar-mode 0)
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
-(desktop-save-mode 1)
+(save-place-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Prompt on close ;;
@@ -203,12 +203,6 @@
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 (add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
 (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Auto-balance windows ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(add-hook 'window-size-change-functions 'balance-windows)
 
 ;; Pgdn & Pgup work properly
 (setq scroll-error-top-bottom t)
@@ -589,30 +583,11 @@ directory to make multiple eshell windows easier."
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
 
-;;;;;;;;;;;;;;;;;;
-;; Mouse Resize ;;
-;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;
+;; Window Resize ;;
+;;;;;;;;;;;;;;;;;;;
 
-(defun my-terminal-config (&optional frame)
-  "Establish settings for the current terminal."
-  (if (not frame) ;; The initial call.
-      (xterm-mouse-mode 1)
-    ;; Otherwise called via after-make-frame-functions.
-    (if xterm-mouse-mode
-        ;; Re-initialise the mode in case of a new terminal.
-        (xterm-mouse-mode 1))))
-;; Evaluate both now (for non-daemon emacs) and upon frame creation
-;; (for new terminals via emacsclient).
-(my-terminal-config)
-(add-hook 'after-make-frame-functions 'my-terminal-config)
-
-;; Disable evil default clipboard stuff
-(setq x-select-enable-clipboard nil)
-(setq x-select-enable-primary nil)
-(setq mouse-drag-copy-region nil)
-(fset 'evil-visual-update-x-selection 'ignore)
-
-(global-set-key (kbd "<M-mouse-7>") 'enlarge-window-horizontally)
-(global-set-key (kbd "<M-mouse-6>") 'shrink-window-horizontally)
-(global-set-key (kbd "<M-mouse-5>") 'enlarge-window)
-(global-set-key (kbd "<M-mouse-4>") 'shrink-window)
+(global-set-key (kbd "ESC <up>") 'shrink-window)
+(global-set-key (kbd "ESC <down>") 'enlarge-window)
+(global-set-key (kbd "ESC <left>") 'shrink-window-horizontally)
+(global-set-key (kbd "ESC <right>") 'enlarge-window-horizontally)
