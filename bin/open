@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# check if rofi is running
+if pgrep "rofi" > /dev/null
+then
+    killall rofi
+else
+    /usr/bin/rofi -rnow -show run -font "consolas 24" -width 200 -fullscreen -lines 4 -eh 1 -padding 800 -opacity 85 -color-window "#073642, #002b36, argb:0000000" -color-normal "argb:08a8a8a, #e4e4e4, argb:0eee8d5, #e4e4e4, #282828" -kb-cancel "Super+Return"
+fi
