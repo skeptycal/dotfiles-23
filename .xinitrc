@@ -8,10 +8,12 @@ setroot -z ~/Pictures/background.jpg
 xsetroot -cursor_name left_ptr
 # cursor acceleration
 xset m 3/2 0
+# volume notifications
+volnoti -t 1
 # shadows
 compton -o 0.3 -r 10 --no-fading-openclose &
 # flux
-redshift -r -l 45.5231:-122.6765 -t 5700:3000 -m randr -g 1.1 &
+redshift -r -l 45.5231:-122.6765 -t 5000:3000 -m randr -g 1.1 &
 # notifications
 twmnd &
 # keys

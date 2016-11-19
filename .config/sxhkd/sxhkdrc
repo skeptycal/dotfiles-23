@@ -3,13 +3,13 @@
 #
 
 XF86AudioRaiseVolume
-    amixer set Master 5%+ unmute
+    vol i
 
 XF86AudioLowerVolume
-    amixer set Master 5%- unmute
+    vol d
 
 XF86AudioMute
-    amixer set Master toggle
+    vol m
 
 XF86AudioPlay
     cmus-remote -u
