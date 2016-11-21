@@ -9,7 +9,7 @@ xsetroot -cursor_name left_ptr
 # cursor acceleration
 xset m 3/2 0
 # volume notifications
-volnoti -t 1
+volnoti
 # shadows
 compton -o 0.3 -r 10 --no-fading-openclose &
 # flux
