@@ -1,4 +1,4 @@
-;;; Custom's code:
+;; Custom's code:
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -35,16 +35,14 @@
  '(helm-split-window-in-side-p t)
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
- '(linum-format "%4d │ ")
  '(magit-diff-use-overlays nil)
+ '(neo-window-width 35)
  '(org-agenda-files (quote ("~/Org/todo.org")))
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
- '(ranger-deer-show-details nil)
- '(ranger-override-dired t)
- '(ranger-show-dotfiles nil)
+    (helm-swoop neotree tabbar ace-window ack ranger auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
+ '(show-paren-delay 0.0)
  '(showkey-log-mode nil)
  '(solarized-bold t)
  '(solarized-termcolors 16)
@@ -80,11 +78,13 @@
  '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
  '(linum ((t (:background "brightblack" :foreground "brightgreen" :underline nil))))
  '(mode-line ((t (:background "black" :foreground "brightcyan" :inverse-video t :box nil))))
- '(mode-line-inactive ((t (:background "black" :foreground "brightgreen" :inverse-video t :box nil))))
+ '(mode-line-highlight ((t (:box (:line-width 2 :color "grey40" :style released-button)))))
+ '(mode-line-inactive ((t (:background "brightgreen" :foreground "black" :inverse-video t :box nil))))
  '(org-todo ((t (:background "red" :distant-foreground "red" :foreground "brightblack" :weight bold))))
  '(region ((t (:inverse-video t))))
+ '(show-paren-match ((t (:background "cyan" :foreground "brightblack" :weight bold))))
  '(term-color-white ((t (:background "white" :foreground "white"))))
- '(vertical-border ((t (:foreground "brightgreen" :inverse-video nil))))
+ '(vertical-border ((t (:background "black" :foreground "brightgreen" :inverse-video nil))))
  '(web-mode-function-call-face ((t (:inherit font-lock-function-name-face))))
  '(web-mode-html-attr-value-face ((t (:inherit font-lock-string-face :foreground "yellow"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "white"))))
@@ -92,8 +92,6 @@
  '(web-mode-javascript-comment-face ((t (:inherit web-mode-comment-face :foreground "brightgreen"))))
  '(web-mode-javascript-string-face ((t (:inherit web-mode-string-face))))
  '(web-mode-variable-name-face ((t (:inherit default :foreground "magenta")))))
-
-;;; My Code:
 
 ;;;;;;;;;;;;
 ;; Nudity ;;
@@ -154,10 +152,10 @@
 
 ;; Vertical border
 (set-face-inverse-video-p 'vertical-border nil)
-(set-face-background 'vertical-border (face-background 'default))
 (set-display-table-slot standard-display-table
                         'vertical-border
-                        (make-glyph-code ?┃))
+                        (make-glyph-code ?|))
+                        ;; (make-glyph-code ?┃))
                         ;; (make-glyph-code ?█))
 
 ;; (setq-default left-margin-width 1 right-margin-width 1) ; Define new widths.
@@ -190,6 +188,10 @@
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 (add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
 (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
+
+;;;;;;;;;;;;
+;; Etc... ;;
+;;;;;;;;;;;;
 
 ;; Pgdn & Pgup work properly
 (setq scroll-error-top-bottom t)
@@ -276,7 +278,7 @@
 (global-set-key (kbd "C-x C-d") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x C-g") 'helm-projectile-ag)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-k") 'helm-occur)
+(global-set-key (kbd "C-x C-k") 'helm-swoop)
 (global-set-key (kbd "C-x C-l") 'helm-locate)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-mini)
@@ -341,7 +343,7 @@
               (shell-command -cmd-str "*xah-run-current-file output*" ))
           (message "No recognized program file suffix for this file."))))))
 
-(global-set-key (kbd "<f8>") 'xah-run-current-file)
+;; (global-set-key (kbd "<f8>") 'xah-run-current-file)
 (global-set-key (kbd "C-c C-e") 'xah-run-current-file)
 
 ;;;;;;;;;;;;;
@@ -439,7 +441,6 @@
 (define-key global-map (kbd "C-M-h") 'buffer-left-swap)
 (define-key global-map (kbd "C-M-l") 'buffer-right-swap)
 
-
 ;;;;;;;;;;;;;;
 ;; Org mode ;;
 ;;;;;;;;;;;;;;
@@ -482,7 +483,7 @@
 (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
 (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 
-;; Make horizontal movement cross lines                                    
+;; Make horizontal movement cross lines
 (setq-default evil-cross-lines nil)
 
 ;; Controvertsial bindings for eVIl
@@ -513,7 +514,7 @@
 
 (require 'auto-complete)
 (global-auto-complete-mode 1)
-(ac-linum-workaround)
+;; (ac-linum-workaround)
 
 (define-key ac-completing-map "\C-m" nil)
 (setq ac-use-menu-map t)
@@ -578,3 +579,35 @@ directory to make multiple eshell windows easier."
 (global-set-key (kbd "ESC <down>") 'enlarge-window)
 (global-set-key (kbd "ESC <left>") 'shrink-window-horizontally)
 (global-set-key (kbd "ESC <right>") 'enlarge-window-horizontally)
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Clean Mode Line ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+;; (setq-default mode-line-format
+;;               (list " "
+;;                     "%b"
+;;                     "      "
+;;                     '(line-number-mode "%lx")
+;;                     '(column-number-mode "%c")
+;;                     "%-"))
+
+(setq-default mode-line-format (list (make-string 10 ?-)
+                                     "%b"
+                                     "%*"
+                                     (make-string 10 ?-)
+                                     "%l,%c"
+                                     (make-string 10 ?-)
+                                     (make-string 1024 ?-)))
+
+;;;;;;;;;;;;;
+;; Neotree ;;
+;;;;;;;;;;;;;
+(define-key evil-normal-state-map "\C-t" 'neotree-toggle)
+(define-key evil-insert-state-map "\C-t" 'neotree-toggle)
+(add-hook 'neotree-mode-hook
+          (lambda ()
+            (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+            (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+            (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
