@@ -1,5 +1,5 @@
 export GOPATH=$HOME/Git/go
-export PATH="$PATH:$HOME/.rvm/bin:$GOPATH/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin:$GOPATH/bin:$HOME/.gem/ruby/2.3.0/bin" # Add RVM to PATH for scripting
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile

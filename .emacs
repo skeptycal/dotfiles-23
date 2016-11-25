@@ -262,6 +262,11 @@
 ;;;;;;;;;;;;;;;
 
 (require 'helm-config)
+
+;; Hide advice
+(defadvice helm-display-mode-line (after undisplay-header activate)
+  (setq header-line-format nil))
+
 (helm-mode 1)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; makes TAB work in terminal
