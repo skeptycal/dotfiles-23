@@ -11,9 +11,6 @@
  '(ac-quick-help-delay 0.0)
  '(ansi-color-names-vector
    ["black" "red" "green" "yellow" "PaleBlue" "magenta" "cyan" "white"])
- '(blink-cursor-delay 10000000)
- '(blink-cursor-interval 1000000000000000)
- '(blink-cursor-mode nil)
  '(company-idle-delay 0)
  '(company-minimum-prefix-length 1)
  '(compilation-message-face (quote default))
@@ -41,7 +38,7 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (helm-swoop neotree tabbar ace-window ack ranger auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
+    (projectile-rails helm-swoop neotree tabbar ace-window ack ranger auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
  '(show-paren-delay 0.0)
  '(showkey-log-mode nil)
  '(solarized-bold t)
@@ -76,6 +73,7 @@
  '(helm-prefarg ((t (:foreground "green"))))
  '(helm-selection ((t (:inherit region :background "white" :foreground "black" :weight normal))))
  '(helm-source-header ((t (:inherit helm-header :background "brightblack" :foreground "magenta" :weight bold))))
+ '(helm-visible-mark ((t (:background "brightblack" :foreground "blue" :weight bold))))
  '(linum ((t (:background "brightblack" :foreground "brightgreen" :underline nil))))
  '(mode-line ((t (:background "black" :foreground "brightcyan" :inverse-video t :box nil))))
  '(mode-line-highlight ((t (:box (:line-width 2 :color "grey40" :style released-button)))))
@@ -110,6 +108,8 @@
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 (save-place-mode 1)
+(blink-cursor-mode nil)
+(setq visible-cursor nil)
 
 ;;;;;;;;;;;;;;;;
 ;; Copy/paste ;;
@@ -204,7 +204,7 @@
 
 ;; Scrolling
 (setq redisplay-dont-pause t
-      scroll-margin 5
+      scroll-margin 0
       scroll-step 1
       scroll-conservatively 10000
       scroll-preserve-screen-position 1)
@@ -525,12 +525,6 @@
 (setq ac-use-menu-map t)
 (define-key ac-menu-map "\C-m" 'ac-complete)
 
-;; Never erase buffer
-(put 'erase-buffer 'disabled t)
-
-;; Buffer menu
-(global-set-key (kbd "C-c C-b") 'buffer-menu)
-
 ;;;;;;;;;;;;
 ;; eshell ;;
 ;;;;;;;;;;;;
@@ -543,7 +537,7 @@ directory to make multiple eshell windows easier."
   (let* ((parent (if (buffer-file-name)
                      (file-name-directory (buffer-file-name))
                    default-directory))
-         (height (/ (window-total-height) 3))
+         (height (/ (window-total-height) 2))
          (name   (car (last (split-string parent "/" t)))))
     (split-window-vertically (- height))
     (other-window 1)
@@ -588,14 +582,6 @@ directory to make multiple eshell windows easier."
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Clean Mode Line ;;
 ;;;;;;;;;;;;;;;;;;;;;
-
-;; (setq-default mode-line-format
-;;               (list " "
-;;                     "%b"
-;;                     "      "
-;;                     '(line-number-mode "%lx")
-;;                     '(column-number-mode "%c")
-;;                     "%-"))
 
 (setq-default mode-line-format (list (make-string 10 ?-)
                                      "%b"
