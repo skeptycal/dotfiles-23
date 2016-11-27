@@ -108,7 +108,7 @@
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 (save-place-mode 1)
-(blink-cursor-mode nil)
+(blink-cursor-mode 0)
 (setq visible-cursor nil)
 
 ;;;;;;;;;;;;;;;;

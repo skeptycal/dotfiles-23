@@ -46,7 +46,7 @@ URxvt.matcher.button: 1
 URxvt.geometry: 120x36
 URxvt.iso14755: False
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.cursorBlink: 1
+URxvt.cursorBlink: 0
 
 ! Solarized color scheme for the X Window System
 !
