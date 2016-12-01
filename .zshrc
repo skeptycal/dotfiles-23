@@ -32,6 +32,7 @@ export ALTERNATE_EDITOR=""
 export EDITOR='emacsclient -nw -c a ""'
 export MAIL=/var/spool/mail/coleman
 export BROWSER=vimb
+export LD_LIBRARY_PATH=/usr/local/lib
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 

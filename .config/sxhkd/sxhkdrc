@@ -34,7 +34,7 @@ XF86KbdBrightnessDown
 
 XF86KbdBrightnessUp
     /usr/local/bin/kb-light.py +
-    
+
 alt + Return
 	urxvt
 
@@ -43,3 +43,6 @@ super + Return
 
 ctrl + alt + super + Escape
   killall karmen
+
+Print
+  maim -s

@@ -19,17 +19,22 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" default)))
+ '(dired-hide-details-hide-information-lines nil)
+ '(dired-hide-details-hide-symlink-targets t)
+ '(diredp-hide-details-initially-flag nil)
  '(focus-dimness 1)
  '(haskell-indentation-cycle-warn nil)
  '(haskell-interactive-mode-eval-mode nil)
  '(helm-ag-base-command "ag --vimgrep -U")
+ '(helm-completion-window-scroll-margin 5)
  '(helm-ff-file-name-history-use-recentf t)
  '(helm-ff-search-library-in-sexp t)
  '(helm-locate-command "locate %s %s")
- '(helm-mode t)
+ '(helm-mode nil)
  '(helm-move-to-line-cycle-in-source t)
  '(helm-scroll-amount 8)
  '(helm-split-window-in-side-p t)
+ '(helm-swoop-pre-input-function (lambda nil ""))
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
  '(magit-diff-use-overlays nil)
@@ -38,7 +43,9 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (projectile-rails helm-swoop neotree tabbar ace-window ack ranger auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex focus pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil writeroom-mode web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
+    (slack bundler ranger projectile-rails helm-swoop neotree tabbar ace-window ack auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
+ '(ranger-deer-show-details nil)
+ '(ranger-override-dired t)
  '(show-paren-delay 0.0)
  '(showkey-log-mode nil)
  '(solarized-bold t)
@@ -212,7 +219,7 @@
 ;; Column numbers in modeline
 (setq column-number-mode t)
 
-;; Remove whitespace on save (web-mode)
+;; Remove whitespace on save (web-mode + ruby-mode)
 (add-hook 'web-mode-hook
           (lambda ()
             (add-to-list 'write-file-functions
@@ -287,7 +294,6 @@
 (global-set-key (kbd "C-x C-l") 'helm-locate)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-mini)
-(global-set-key (kbd "C-x b") 'helm-mini)
 
 ;; A lil' performance
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
@@ -317,7 +323,7 @@
            ("tex" . "pdflatex")
            ("latex" . "pdflatex")
            ("java" . "javac")
-           ("scm" . "chibi-scheme")
+           ("scm" . "env LD_LIBRARY_PATH=/usr/local/lib chibi-scheme")
            ("hs" . "runghc")
            ("rs" . "rust")
            ))
@@ -348,7 +354,6 @@
               (shell-command -cmd-str "*xah-run-current-file output*" ))
           (message "No recognized program file suffix for this file."))))))
 
-;; (global-set-key (kbd "<f8>") 'xah-run-current-file)
 (global-set-key (kbd "C-c C-e") 'xah-run-current-file)
 
 ;;;;;;;;;;;;;
@@ -382,54 +387,54 @@
 (defun buffer-up-swap()
   (interactive)
   (let ((current-window (selected-window))
-	(current-buffer (buffer-name))
-	(swaped-window nil)
-	(swaped-buffer nil))
-	(progn (windmove-up)
-	 (setq swaped-window (selected-window))
-	 (setq swaped-buffer (buffer-name))
-	 (if (and (not (string= swaped-buffer current-buffer)))
-	     (progn (set-window-buffer swaped-window current-buffer)
-		    (set-window-buffer current-window swaped-buffer))))))
+  (current-buffer (buffer-name))
+  (swaped-window nil)
+  (swaped-buffer nil))
+  (progn (windmove-up)
+   (setq swaped-window (selected-window))
+   (setq swaped-buffer (buffer-name))
+   (if (and (not (string= swaped-buffer current-buffer)))
+       (progn (set-window-buffer swaped-window current-buffer)
+        (set-window-buffer current-window swaped-buffer))))))
 
 (defun buffer-down-swap()
   (interactive)
   (let ((current-window (selected-window))
-	(current-buffer (buffer-name))
-	(swaped-window nil)
-	(swaped-buffer nil))
-	(progn (windmove-down)
-	 (setq swaped-window (selected-window))
-	 (setq swaped-buffer (buffer-name))
-	 (if (and (not (string= swaped-buffer current-buffer)))
-	     (progn (set-window-buffer swaped-window current-buffer)
-		    (set-window-buffer current-window swaped-buffer))))))
+  (current-buffer (buffer-name))
+  (swaped-window nil)
+  (swaped-buffer nil))
+  (progn (windmove-down)
+   (setq swaped-window (selected-window))
+   (setq swaped-buffer (buffer-name))
+   (if (and (not (string= swaped-buffer current-buffer)))
+       (progn (set-window-buffer swaped-window current-buffer)
+        (set-window-buffer current-window swaped-buffer))))))
 
 (defun buffer-right-swap()
   (interactive)
   (let ((current-window (selected-window))
-	(current-buffer (buffer-name))
-	(swaped-window nil)
-	(swaped-buffer nil))
-	(progn (windmove-right)
-	 (setq swaped-window (selected-window))
-	 (setq swaped-buffer (buffer-name))
-	 (if (and (not (string= swaped-buffer current-buffer)))
-	     (progn (set-window-buffer swaped-window current-buffer)
-		    (set-window-buffer current-window swaped-buffer))))))
+  (current-buffer (buffer-name))
+  (swaped-window nil)
+  (swaped-buffer nil))
+  (progn (windmove-right)
+   (setq swaped-window (selected-window))
+   (setq swaped-buffer (buffer-name))
+   (if (and (not (string= swaped-buffer current-buffer)))
+       (progn (set-window-buffer swaped-window current-buffer)
+        (set-window-buffer current-window swaped-buffer))))))
 
 (defun buffer-left-swap()
   (interactive)
   (let ((current-window (selected-window))
-	(current-buffer (buffer-name))
-	(swaped-window nil)
-	(swaped-buffer nil))
-	(progn (windmove-left)
-	 (setq swaped-window (selected-window))
-	 (setq swaped-buffer (buffer-name))
-	 (if (and (not (string= swaped-buffer current-buffer)))
-	     (progn (set-window-buffer swaped-window current-buffer)
-		    (set-window-buffer current-window swaped-buffer))))))
+  (current-buffer (buffer-name))
+  (swaped-window nil)
+  (swaped-buffer nil))
+  (progn (windmove-left)
+   (setq swaped-window (selected-window))
+   (setq swaped-buffer (buffer-name))
+   (if (and (not (string= swaped-buffer current-buffer)))
+       (progn (set-window-buffer swaped-window current-buffer)
+        (set-window-buffer current-window swaped-buffer))))))
 
 
 ;; keys
@@ -459,8 +464,6 @@
     (define-key org-mode-map (kbd "M-h") nil)
     (define-key org-mode-map (kbd "TAB") 'org-cycle)))
 
-;; Hook flyspell into org-mode
-(add-hook 'org-mode-hook 'turn-on-flyspell)
 (add-hook 'org-mode-hook 'wc-goal-mode)
 
 ;;;;;;;;;;;;
@@ -481,6 +484,9 @@
 (define-key evil-motion-state-map "f" 'avy-goto-char-timer)
 (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
 (setq evil-want-C-u-scroll t)
+
+;; ERC
+(evil-set-initial-state 'erc-mode 'insert)
 
 ;; Make movement keys work like they should
 (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
@@ -547,8 +553,8 @@ directory to make multiple eshell windows easier."
     (insert (concat "ls"))
     (eshell-send-input)))
 
-(global-set-key (kbd "C-c C-w") 'eshell-here)
-(global-set-key (kbd "C-x C-q") 'kill-buffer-and-window)
+(global-set-key (kbd "C-c !") 'eshell-here)
+(global-set-key (kbd "C-c k") 'kill-buffer-and-window)
 
 (eval-after-load 'eshell
   '(require 'eshell-z nil t))
@@ -557,6 +563,12 @@ directory to make multiple eshell windows easier."
   (autoload 'epe-theme-lambda "eshell-prompt-extras")
   (setq eshell-highlight-prompt nil
         eshell-prompt-function 'epe-theme-lambda))
+
+;; helm completion
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (eshell-cmpl-initialize)
+            (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)))
 
 ;;;;;;;;;
 ;; ERC ;;
@@ -602,3 +614,9 @@ directory to make multiple eshell windows easier."
             (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
             (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
             (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+;;;;;;;;;;;
+;; Rails ;;
+;;;;;;;;;;;
+
+(projectile-rails-global-mode t)
