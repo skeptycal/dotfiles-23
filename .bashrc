@@ -7,6 +7,11 @@
 
 # Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export PATH="$PATH:$HOME/.rvm/bin:$GOPATH/bin:$HOME/.gem/ruby/2.3.0/bin" # Add RVM to PATH for scripting
+
+# Go
+export GOPATH=$HOME/Git/go
+export PATH="$PATH:/home/coleman/Git/go/bin"
 
 alias ls='ls --color=auto'
 alias la='ls -al'
@@ -18,6 +23,7 @@ export ALTERNATE_EDITOR=""
 export EDITOR='emacsclient -nw -c a ""'
 export MAIL=/var/spool/mail/coleman
 export BROWSER=vimb
+export LD_LIBRARY_PATH=/usr/local/lib
 
 # git
 source ~/.git-prompt.sh
@@ -58,7 +64,7 @@ bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
 
 # Prompt variables
-PROMPT_BEFORE="$txtpur\u@\h $txtwht\w$txtrst"
+PROMPT_BEFORE="\[$txtpur\]\u@\h \[$txtwht\]\w\[$txtrst\]"
 PROMPT_AFTER=" \\\$ "
 
 # Prompt command
@@ -78,3 +84,13 @@ if [[ -z $DISPLAY ]]; then
 fi
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+bind '"\t":menu-complete'
+bind '"\C-[[Z": menu-complete-backward'
+bind 'set show-all-if-ambiguous on'
+
+source /home/coleman/Git/fuzzy_bash_completion/fuzzy_bash_completion
+fuzzy_replace_filedir_xspec
+fuzzy_setup_for_command cd
+fuzzy_setup_for_command ls
+fuzzy_setup_for_command rm

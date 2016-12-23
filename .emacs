@@ -11,6 +11,7 @@
  '(ac-quick-help-delay 0.0)
  '(ansi-color-names-vector
    ["black" "red" "green" "yellow" "PaleBlue" "magenta" "cyan" "white"])
+ '(c-basic-offset 4)
  '(company-idle-delay 0)
  '(company-minimum-prefix-length 1)
  '(compilation-message-face (quote default))
@@ -25,7 +26,6 @@
  '(focus-dimness 1)
  '(haskell-indentation-cycle-warn nil)
  '(haskell-interactive-mode-eval-mode nil)
- '(helm-ag-base-command "ag --vimgrep -U")
  '(helm-completion-window-scroll-margin 5)
  '(helm-ff-file-name-history-use-recentf t)
  '(helm-ff-search-library-in-sexp t)
@@ -35,6 +35,8 @@
  '(helm-scroll-amount 8)
  '(helm-split-window-in-side-p t)
  '(helm-swoop-pre-input-function (lambda nil ""))
+ '(js-indent-level 2)
+ '(js2-mode-show-strict-warnings nil)
  '(jsx-indent-level 4)
  '(jsx-use-auto-complete t)
  '(magit-diff-use-overlays nil)
@@ -43,7 +45,7 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (slack bundler ranger projectile-rails helm-swoop neotree tabbar ace-window ack auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
+    (jsx-mode js2-mode babel-repl toml-mode slack bundler ranger projectile-rails helm-swoop neotree tabbar ace-window ack auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(show-paren-delay 0.0)
@@ -184,17 +186,19 @@
 
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . sass-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\Vagrantfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\Gemfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 (add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
-(setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
+
+(setq web-mode-content-types-alist
+      '(("jsx" . "\\.js[x]?\\'")))
 
 ;;;;;;;;;;;;
 ;; Etc... ;;
@@ -308,13 +312,13 @@
         (-suffix-map
          ;; (‹extension› . ‹shell program name›)
          `(
+           ("c" . "ccr")
            ("php" . "php")
            ("pl" . "perl")
            ("py" . "python")
            ("py3" . ,(if (string-equal system-type "windows-nt") "c:/Python32/python.exe" "python3"))
            ("rb" . "ruby")
            ("go" . "go run")
-           ("js" . "node") ; node.js
            ("sh" . "bash")
            ("clj" . "java -cp /home/xah/apps/clojure-1.6.0/clojure-1.6.0.jar clojure.main")
            ("rkt" . "racket")
@@ -326,6 +330,7 @@
            ("scm" . "env LD_LIBRARY_PATH=/usr/local/lib chibi-scheme")
            ("hs" . "runghc")
            ("rs" . "rust")
+           ("js" . "babelr")
            ))
 
         -fname
@@ -480,8 +485,8 @@
 (evil-mode 1)
 (global-evil-surround-mode)
 (setq avy-all-windows nil)
-(define-key evil-normal-state-map "f" 'avy-goto-char-timer)
-(define-key evil-motion-state-map "f" 'avy-goto-char-timer)
+(define-key evil-normal-state-map "f" 'avy-goto-char)
+(define-key evil-motion-state-map "f" 'avy-goto-char)
 (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
 (setq evil-want-C-u-scroll t)
 

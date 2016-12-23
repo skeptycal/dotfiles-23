@@ -18,7 +18,5 @@ redshift -r -l 45.5231:-122.6765 -t 5000:3000 -m randr -g 1.1 &
 twmnd &
 # keys
 sxhkd &
-# terminal
-ec &
 # windows
-exec karmen -font "Source Sans Pro"
+exec karmen -font "monospace"
