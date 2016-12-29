@@ -64,7 +64,7 @@ bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
 
 # Prompt variables
-PROMPT_BEFORE="\[$txtpur\]\u@\h \[$txtwht\]\w\[$txtrst\]"
+PROMPT_BEFORE="\[$txtcyn\]\u@\h \[$txtylw\]\w\[$txtrst\]"
 PROMPT_AFTER=" \\\$ "
 
 # Prompt command
