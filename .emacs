@@ -200,6 +200,9 @@
 (setq web-mode-content-types-alist
       '(("jsx" . "\\.js[x]?\\'")))
 
+(setq web-mode-engines-alist
+      '(("go" . "\\.html\\'")))
+
 ;;;;;;;;;;;;
 ;; Etc... ;;
 ;;;;;;;;;;;;
