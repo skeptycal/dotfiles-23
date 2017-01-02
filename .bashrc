@@ -28,6 +28,9 @@ export LD_LIBRARY_PATH=/usr/local/lib
 # git
 source ~/.git-prompt.sh
 
+# fix for ssh
+TERM=xterm
+
 # Syntactic sugar for ANSI escape sequences
 txtblk='\e[0;30m' # Black - Regular
 txtred='\e[0;31m' # Red
