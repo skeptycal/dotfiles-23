@@ -45,7 +45,7 @@
  '(org-support-shift-select nil)
  '(package-selected-packages
    (quote
-    (handlebars-mode mustache-mode mustache yaml-mode jsx-mode js2-mode babel-repl toml-mode slack bundler ranger projectile-rails helm-swoop neotree tabbar ace-window ack auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
+    (typescript-mode handlebars-mode mustache-mode mustache yaml-mode jsx-mode js2-mode babel-repl toml-mode slack bundler ranger projectile-rails helm-swoop neotree tabbar ace-window ack auto-dim-other-buffers powerline svg-mode-line-themes helm-org-rifle helm-dictionary ac-helm company apt-utils readline-complete bash-completion cargo ac-racer racer rust-mode smart-mode-line helm-hoogle wiki-summary ac-haskell-process buffer-move eshell-prompt-extras eshell-did-you-mean eshell-z multi-term helm-ag go-autocomplete go-mode smex pophint evil-avy grizzl slime evil-surround god-mode evil-tutor helm-cider cider ghc haskell-mode showkey magit evil web-mode wc-mode wc-goal-mode w3m sass-mode pandoc-mode pandoc helm-projectile golden-ratio flycheck flx-isearch fill-column-indicator ergoemacs-mode eh-gnus dired-hacks-utils color-theme-solarized auctex ace-flyspell)))
  '(ranger-deer-show-details nil)
  '(ranger-override-dired t)
  '(show-paren-delay 0.0)
@@ -189,6 +189,7 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.rb\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\Vagrantfile\\'" . ruby-mode))
