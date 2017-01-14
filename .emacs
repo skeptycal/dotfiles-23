@@ -197,6 +197,7 @@
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 (add-to-list 'auto-mode-alist '("\\.sld\\'" . scheme-mode))
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 
 (setq web-mode-content-types-alist
       '(("jsx" . "\\.js[x]?\\'")))

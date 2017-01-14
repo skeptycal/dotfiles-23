@@ -44,5 +44,5 @@ super + Return
 ctrl + alt + super + Escape
   killall karmen
 
-Print
+alt + shift + 4
   maim -s

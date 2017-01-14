@@ -12,6 +12,7 @@ export PATH="$PATH:$HOME/.rvm/bin:$GOPATH/bin:$HOME/.gem/ruby/2.3.0/bin" # Add R
 # Go
 export GOPATH=$HOME/Git/go
 export PATH="$PATH:/home/coleman/Git/go/bin"
+export PATH="$PATH:/home/coleman/.cargo/bin"
 
 alias ls='ls --color=auto'
 alias la='ls -al'
@@ -82,6 +83,7 @@ export GIT_PS1_SHOWCOLORHINTS="true"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+# x
 if [[ -z $DISPLAY ]]; then
   startx -- -ardelay 200 -arinterval 30
 fi

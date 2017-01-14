@@ -20,3 +20,4 @@ twmnd &
 sxhkd &
 # windows
 exec karmen -font "monospace"
+# exec ~/Git/nocfgwm/target/debug/wm
