@@ -365,6 +365,7 @@
           (message "No recognized program file suffix for this file."))))))
 
 (global-set-key (kbd "C-c C-e") 'xah-run-current-file)
+(global-set-key (kbd "<f8>") 'xah-run-current-file)
 
 ;;;;;;;;;;;;;
 ;; Haskell ;;

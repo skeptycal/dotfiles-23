@@ -6,8 +6,8 @@
 [[ $- != *i* ]] && return
 
 # Ruby
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-export PATH="$PATH:$HOME/.rvm/bin:$GOPATH/bin:$HOME/.gem/ruby/2.3.0/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # Go
 export GOPATH=$HOME/Git/go
@@ -93,9 +93,3 @@ fi
 bind '"\t":menu-complete'
 bind '"\C-[[Z": menu-complete-backward'
 bind 'set show-all-if-ambiguous on'
-
-source /home/coleman/Git/fuzzy_bash_completion/fuzzy_bash_completion
-fuzzy_replace_filedir_xspec
-fuzzy_setup_for_command cd
-fuzzy_setup_for_command ls
-fuzzy_setup_for_command rm
